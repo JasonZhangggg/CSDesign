@@ -11,6 +11,7 @@ public class Enemy1 : MonoBehaviour
     public float timer = 0;
     public float speed = 100;
     public Rigidbody rb;
+    public int HP = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -44,5 +45,11 @@ public class Enemy1 : MonoBehaviour
             }
         }
         
+    }
+    public void doDamage(){
+        HP -= 20;
+        if(HP <= 0){
+            Destroy(gameObject);
+        }
     }
 }
