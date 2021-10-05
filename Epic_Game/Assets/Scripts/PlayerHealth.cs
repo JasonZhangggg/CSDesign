@@ -44,13 +44,24 @@ public class PlayerHealth : MonoBehaviour
         {
             takeDamage(20);
         }
+        
+    }
+    void OnTriggerEnter(Collider trig)
+    {
+        Debug.Log("trigger");
+        if(trig.gameObject.tag == "Fatal")
+        {
+            
+            //Instantly kills player
+            takeDamage(1000);
+        }
     }
 
     //deals removes health points and updates health bar
     void takeDamage(int damage)
     {
         
-        if(!invincible)
+        if(!invincible || damage > 100)
         {
             health -= damage;
             //changes the healthbar's scale based on percent health. Used this like to figure out how to change scale
@@ -61,11 +72,11 @@ public class PlayerHealth : MonoBehaviour
             //makes player temporarily invincible
             invincible = true;
         }
-        if(health == 0)
+        if(health <= 0)
         {
             //Resets the scene
             Debug.Log("You Died");
-            SceneManager.LoadScene("Level 1");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
