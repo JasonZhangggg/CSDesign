@@ -17,6 +17,17 @@ public class playerMovement : MonoBehaviour
     bool isGrounded;
 
     public float speed = 12f;
+
+    Vector3 impact = Vector3.zero;
+    float mass = 3.0F; // defines the character mass
+
+    private float dashTime = 0f;
+    private bool isDashing = false;
+    public float dashLength = 0.15f;
+    public float dashSpeed = 75f;
+    public float dashTimer = 0f;
+    public float dashCooldown = 1f;
+
     // Update is called once per frame
     void Update()
     {
@@ -42,5 +53,35 @@ public class playerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if (impact.magnitude > 0.2F) controller.Move(impact * Time.deltaTime);
+
+        impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) == true && dashTime < dashLength && controller.isGrounded && !isDashing && dashTimer>dashCooldown)
+        {
+            dashTimer = 0;
+            isDashing = true;
+        }
+ 
+        if (isDashing == true && dashTime < dashLength){
+             controller.Move(move * dashSpeed * Time.deltaTime);
+             dashTime += Time.deltaTime;
+         }
+        if (dashTime >= dashLength){
+            isDashing = false;
+            dashTime = 0f;
+            controller.Move(move * speed * Time.deltaTime);
+        }
+        if(!isDashing && dashTimer< dashCooldown+0.1){
+            dashTimer += Time.deltaTime;
+        } 
     }
+
+    public void AddImpact(Vector3 dir, float force){
+        dir.Normalize();
+        if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
+        impact += dir.normalized * force / mass;
+    }
+
 }

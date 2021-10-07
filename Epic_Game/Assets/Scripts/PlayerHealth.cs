@@ -43,6 +43,9 @@ public class PlayerHealth : MonoBehaviour
         if(col.gameObject.tag == "Enemy1")
         {
             takeDamage(20);
+            Vector3 force = transform.position -  col.transform.position;
+            GameObject.Find("Player").GetComponent<playerMovement>().AddImpact(force, 200);
+
         }
         
     }
