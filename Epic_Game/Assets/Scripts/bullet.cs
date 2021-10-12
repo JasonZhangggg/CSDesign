@@ -10,5 +10,8 @@ public class bullet : MonoBehaviour
         if(collision.gameObject.tag == "Enemy1"){
             collision.gameObject.GetComponent<Enemy1>().doDamage();
         }
+        if(collision.gameObject.tag == "Enemy2"){
+            collision.gameObject.GetComponent<Enemy2>().doDamage();
+        }
     }
 }

@@ -7,11 +7,13 @@ TagManager:
   - Bullet
   - Enemy1
   - Fatal
+  - Enemy_Bullet
+  - Enemy2
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
   - 

@@ -16,7 +16,7 @@ public class Enemy1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -36,6 +36,7 @@ public class Enemy1 : MonoBehaviour
         }
         else
         {
+            //charges at player
             rb.AddRelativeForce(Vector3.forward * speed);
             timer += Time.deltaTime;
             if(timer >= windupTime/2)

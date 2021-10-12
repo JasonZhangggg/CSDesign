@@ -45,7 +45,10 @@ public class PlayerHealth : MonoBehaviour
             takeDamage(20);
             Vector3 force = transform.position -  col.transform.position;
             GameObject.Find("Player").GetComponent<playerMovement>().AddImpact(force, 200);
-
+        }
+        if(col.gameObject.tag == "Enemy_Bullet")
+        {
+            takeDamage(10);
         }
         
     }
