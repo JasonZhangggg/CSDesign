@@ -388,18 +388,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324054500}
   m_CullTransparentMesh: 1
---- !u!114 &369399063 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3904752311370716278, guid: c44d5ab68d866f24aa3849460c0260e0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1709477147}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2262cc749d4bcd14585fd8abb601d496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &435423713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,20 +1746,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -3906180280981519079, guid: c44d5ab68d866f24aa3849460c0260e0,
-        type: 3}
-      propertyPath: Enemy_Shoot_Bullet
-      value: 
-      objectReference: {fileID: 369399063}
     - target: {fileID: 4793117959487960722, guid: c44d5ab68d866f24aa3849460c0260e0,
         type: 3}
       propertyPath: m_Name
       value: Enemy 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4793117959487960722, guid: c44d5ab68d866f24aa3849460c0260e0,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4793117959487960732, guid: c44d5ab68d866f24aa3849460c0260e0,
         type: 3}

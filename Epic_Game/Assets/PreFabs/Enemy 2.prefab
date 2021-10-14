@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4793117959487960721}
   - component: {fileID: 3904752311370716278}
   - component: {fileID: -3906180280981519079}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Enemy 2
   m_TagString: Enemy2
   m_Icon: {fileID: 0}
@@ -125,7 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 7155627140575018757, guid: 5bbb6afd0dd209541916c3cb707342cf, type: 3}
-  player: {fileID: 0}
   fireRate: 2
   bulletSpeed: 20
   bulletLifeSpan: 10
@@ -145,6 +144,9 @@ MonoBehaviour:
   player: {fileID: 0}
   attackRange: 20
   closeRange: 10
+  maxHeight: 5
+  minHeight: 0
   speed: 1000
   rb: {fileID: 4793117959487960721}
   HP: 100
+  Enemy_Shoot_Bullet: {fileID: 3904752311370716278}
