@@ -24,7 +24,7 @@ public class Shoot_Bullet : MonoBehaviour
         //checks if "fire" button was pressed.
         if(Input.GetButtonDown("Fire1") && !isReloading)
         {
-            //Instantiates a bullet slightly in from of the player and adds a force on it's x axis
+            //Instantiates a bullet slightly in from of the player and adds a force on it's z axis
             currentClone = Instantiate(bullet, player.transform.position, player.transform.rotation);
             currentClone.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * bulletSpeed);
             currentClone.transform.position = currentClone.transform.position + (transform.forward * distInFrontOfCamera);
@@ -33,6 +33,12 @@ public class Shoot_Bullet : MonoBehaviour
             //destroys the bullet after the given lifespan
             Destroy(currentClone, bulletLifeSpan);
         
+        }
+        if(Input.GetButtonDown("Reload") && !isReloading)
+        {
+            //manually reloads
+            counter = 0;
+            isReloading = true;
         }
         if(counter == 0)isReloading = true;
         if(isReloading){
