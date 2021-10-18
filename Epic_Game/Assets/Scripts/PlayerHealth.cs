@@ -15,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
     private float invinicbilityTimer = 0;
     public int health;
     private float healthBarSizeX;
+    public GameObject gameController;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
         //Sets up health and healthbar size variables
         health = maxHealth;
         healthBarSizeX = healthBar.transform.localScale.x;
+        gameController = GameObject.Find("Game Controller");
     }
 
     // Update is called once per frame
@@ -80,9 +82,7 @@ public class PlayerHealth : MonoBehaviour
         }
         if(health <= 0)
         {
-            //Resets the scene
-            Debug.Log("You Died");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            gameController.GetComponent<GameController>().resetLevel();
         }
     }
 }

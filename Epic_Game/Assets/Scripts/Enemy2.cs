@@ -15,11 +15,13 @@ public class Enemy2 : MonoBehaviour
     public int HP = 100;
     private int direction = 4;
     public Component Enemy_Shoot_Bullet;
+    public GameObject gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        gameController = GameObject.Find("Game Controller");
     }
 
 
@@ -80,6 +82,7 @@ public class Enemy2 : MonoBehaviour
     public void doDamage(){
         HP -= 20;
         if(HP <= 0){
+            gameController.GetComponent<GameController>().addKill();
             Destroy(gameObject);
         }
     }

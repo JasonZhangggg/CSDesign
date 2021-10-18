@@ -12,11 +12,13 @@ public class Enemy1 : MonoBehaviour
     public float speed = 100;
     public Rigidbody rb;
     public int HP = 100;
+    public GameObject gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        gameController = GameObject.Find("Game Controller");
     }
 
     // Update is called once per frame
@@ -50,6 +52,7 @@ public class Enemy1 : MonoBehaviour
     public void doDamage(){
         HP -= 20;
         if(HP <= 0){
+            gameController.GetComponent<GameController>().addKill();
             Destroy(gameObject);
         }
     }
