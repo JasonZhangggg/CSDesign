@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 7155627140575018757, guid: 5bbb6afd0dd209541916c3cb707342cf, type: 3}
   fireRate: 2
-  bulletSpeed: 20
+  bulletSpeed: 10
   bulletLifeSpan: 10
   distInFrontOfCamera: 3
 --- !u!114 &-3906180280981519079
@@ -150,3 +150,4 @@ MonoBehaviour:
   rb: {fileID: 4793117959487960721}
   HP: 100
   Enemy_Shoot_Bullet: {fileID: 3904752311370716278}
+  gameController: {fileID: 0}

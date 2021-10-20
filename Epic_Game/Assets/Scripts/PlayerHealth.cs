@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     public int health;
     private float healthBarSizeX;
     public GameObject gameController;
+    
 
     // Start is called before the first frame update
     void Start()

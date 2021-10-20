@@ -11,12 +11,14 @@ public class Shoot_Bullet : MonoBehaviour
     private GameObject currentClone;
     public Text ammoText;
     public float counter = 12;
+    public mouseLook cameraScript;
     //creates variables relating to bullet mechanics
     public float bulletSpeed = 20f;
     public float bulletLifeSpan = 10f;
     public float distInFrontOfCamera = 3f;
     public float reloadTime = 0f;
     public bool isReloading = false;
+    public float recoil = 5;
     // Update is called once per frame
     void Update()
     {
@@ -32,6 +34,9 @@ public class Shoot_Bullet : MonoBehaviour
             counter--;
             //destroys the bullet after the given lifespan
             Destroy(currentClone, bulletLifeSpan);
+
+            //applies recoil to camera
+            cameraScript.addRecoil(recoil);
         
         }
         if(Input.GetButtonDown("Reload") && !isReloading)
