@@ -53,6 +53,7 @@ public class Enemy1 : MonoBehaviour
         HP -= 20;
         if(HP <= 0){
             gameController.GetComponent<GameController>().addKill();
+            //gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); doesn't work because enemy dies before sound finishes playing. Maybe erase hitbox then destroy enemy a few seconds later
             Destroy(gameObject);
         }
     }

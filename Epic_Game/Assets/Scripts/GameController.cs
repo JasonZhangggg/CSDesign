@@ -20,6 +20,9 @@ public class GameController : MonoBehaviour
     public string[] levelNames = {"Level 1", "Level 2"};
     public int level = 0;
 
+    //Sound management
+    public Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,7 +40,22 @@ public class GameController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        //Add new audio clips here
+        audioClips.Add("Gun Shot", Resources.Load<AudioClip>("Audio/mixkit-game-gun-shot-1662"));
+        audioClips.Add("Reload1", Resources.Load<AudioClip>("Audio/mixkit-handgun-release-1664"));
+        audioClips.Add("Reload2", Resources.Load<AudioClip>("Audio/mixkit-handgun-click-1660"));
+        audioClips.Add("Explosion", Resources.Load<AudioClip>("Audio/mixkit-short-explosion-1694"));
+
+        //Sounds obtained from https://mixkit.co/free-sound-effects/
+
     }
+
+    public void playAudio(AudioSource audioSource, string audioClip)
+    {
+        audioSource.PlayOneShot(audioClips[audioClip]);
+    }
+
 
     // Update is called once per frame
     void Update()

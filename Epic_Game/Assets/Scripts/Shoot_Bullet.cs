@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Shoot_Bullet : MonoBehaviour
 {
+    //gamecontroller related variables.
+    public GameController gameController;
+    public AudioSource playerAudioSource;
+    bool soundPlayed = false;
+
     //creates variables to store player and bullet gameobjects
     public GameObject bullet;
     public GameObject player;
@@ -19,6 +24,13 @@ public class Shoot_Bullet : MonoBehaviour
     public float reloadTime = 0f;
     public bool isReloading = false;
     public float recoil = 5;
+
+    void Awake()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        playerAudioSource = GetComponent<AudioSource>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -37,6 +49,9 @@ public class Shoot_Bullet : MonoBehaviour
 
             //applies recoil to camera
             cameraScript.addRecoil(recoil);
+
+            //plays gunshot
+            gameController.playAudio(playerAudioSource, "Gun Shot");
         
         }
         if(Input.GetButtonDown("Reload") && !isReloading)
@@ -47,11 +62,18 @@ public class Shoot_Bullet : MonoBehaviour
         }
         if(counter == 0)isReloading = true;
         if(isReloading){
+            if(!soundPlayed)
+            {
+                gameController.playAudio(playerAudioSource, "Reload1");
+                soundPlayed = true;
+            }
             reloadTime+=Time.deltaTime;
         }
         if(reloadTime >= 1){
+            gameController.playAudio(playerAudioSource, "Reload2");
             reloadTime = 0;
             isReloading = false;
+            soundPlayed = false;
             counter = 12;
         }
     }
