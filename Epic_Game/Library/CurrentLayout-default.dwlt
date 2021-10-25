@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 42
+  controlID: 35
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 363
     height: 561
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 15
+  controlID: 36
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 16
+  controlID: 37
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -311,20 +311,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Audio
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/Audio
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\420142\Documents\GitHub\CSDesign\Epic_Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c0390000
-    m_LastClickedID: 14784
-    m_ExpandedIDs: 000000005238000062380000883800003a3f000000ca9a3b
+    m_SelectedIDs: 4c390000
+    m_LastClickedID: 14668
+    m_ExpandedIDs: 000000003a3900003e3900004839000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -352,7 +352,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000052380000
+    m_ExpandedIDs: 000000003a3900003c3900003e390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -477,7 +477,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 68fbfffff4ffffff
+      m_ExpandedIDs: 32e7ffff34ecffff24f8ffff26f8ffff143800008e380000023b000066400000544100009e470000a4490000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -3.9743843, y: -28.26939, z: -8.209053}
     speed: 2
-    m_Value: {x: -3.9743843, y: -28.26939, z: -8.209053}
+    m_Value: {x: 31.899998, y: 3.1900024, z: -2.72}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -587,11 +587,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.21823396, y: 0.6548092, z: -0.20601209, w: -0.6936565}
     speed: 2
-    m_Value: {x: -0.21823381, y: 0.6548087, z: -0.20601194, w: -0.693656}
+    m_Value: {x: -0.044962868, y: 0.94605774, z: -0.2836656, w: -0.14995661}
   m_Size:
     m_Target: 32.828415
     speed: 2
-    m_Value: 32.828415
+    m_Value: 2.165063
   m_Ortho:
     m_Target: 0
     speed: 2

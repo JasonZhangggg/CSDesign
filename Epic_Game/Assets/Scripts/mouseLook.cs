@@ -5,16 +5,20 @@ using UnityEngine;
 public class mouseLook : MonoBehaviour
 {
 
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity;
 
     public Transform playerBody;
 
     float xRotation = 0f;
 
     public float recoil = 0f;
+
+    public GameController gameController;
     // Start is called before the first frame update
     void Start()
     {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        updateMouseSensitivity();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -44,5 +48,10 @@ public class mouseLook : MonoBehaviour
     public void addRecoil(float recoilAmount)
     {
         recoil = recoilAmount;
+    }
+
+    public void updateMouseSensitivity()
+    {
+        mouseSensitivity = gameController.mouseSensitivity;
     }
 }

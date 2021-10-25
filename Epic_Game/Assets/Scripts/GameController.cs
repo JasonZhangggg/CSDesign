@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
@@ -22,6 +23,11 @@ public class GameController : MonoBehaviour
 
     //Sound management
     public Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+
+    //Player Settings
+    public float mouseSensitivity = 75;
+    public int reticalSize = 50;
+    public Color reticalColor = Color.black;
     
     // Start is called before the first frame update
     void Awake()
@@ -110,5 +116,7 @@ public class GameController : MonoBehaviour
         //Resets the scene
         Debug.Log("You Died");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
+
 }

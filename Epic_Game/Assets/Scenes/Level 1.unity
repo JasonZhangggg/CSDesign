@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -559,6 +559,7 @@ MonoBehaviour:
   mouseSensitivity: 75
   playerBody: {fileID: 1694040364}
   recoil: 0
+  gameController: {fileID: 0}
 --- !u!81 &284963843
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1870,12 +1871,15 @@ MonoBehaviour:
   enemiesKilled: 0
   totalKills: 0
   timeElapsed: 0
-  winConditions: 0100000001000000
+  winConditions: 0200000001000000
   winValues: 0a0000003c000000
   levelNames:
   - Level 1
   - Level 2
   level: 0
+  mouseSensitivity: 75
+  reticalSize: 50
+  reticalColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &1652745011
 Transform:
   m_ObjectHideFlags: 0
@@ -2685,9 +2689,10 @@ GameObject:
   - component: {fileID: 2116714362}
   - component: {fileID: 2116714364}
   - component: {fileID: 2116714363}
+  - component: {fileID: 2116714365}
   m_Layer: 5
   m_Name: Reticle
-  m_TagString: Untagged
+  m_TagString: Reticle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2752,3 +2757,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116714361}
   m_CullTransparentMesh: 1
+--- !u!114 &2116714365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116714361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0420ca64a3587634c9e820282c896710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
