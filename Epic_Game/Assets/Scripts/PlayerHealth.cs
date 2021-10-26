@@ -16,6 +16,10 @@ public class PlayerHealth : MonoBehaviour
     public int health;
     private float healthBarSizeX;
     public GameObject gameController;
+    public Color32 healthColor;
+    public float N_power;
+    public float N_root;
+
     
 
     // Start is called before the first frame update
@@ -24,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
         //Sets up health and healthbar size variables
         health = maxHealth;
         healthBarSizeX = healthBar.transform.localScale.x;
+        healthColor = healthBar.GetComponent<Image>().color;
         gameController = GameObject.Find("Game Controller");
     }
 
@@ -69,7 +74,10 @@ public class PlayerHealth : MonoBehaviour
     //deals removes health points and updates health bar
     void takeDamage(int damage)
     {
-        
+        N_root = (float)Mathf.Pow(((float)health / 100f), (1f / 1.5f));
+        N_power = (float)Mathf.Pow(((float)health / 100f), 4);
+
+
         if(!invincible || damage > 100)
         {
             health -= damage;
@@ -77,17 +85,25 @@ public class PlayerHealth : MonoBehaviour
             //https://answers.unity.com/questions/805594/how-do-i-change-an-objects-scale-in-code.html
             float percentHealth = (float)damage/maxHealth;
             healthBar.transform.localScale -= new Vector3(healthBarSizeX*(percentHealth), 0, 0);
-
             //makes player temporarily invincible
             invincible = true;
         }
 
         else if (health <= 40) {
-            healthBar.GetComponent<Image>().color = new Color32(255, 75, 75, 255);
+            //swag
         }
         if (health <= 0)
         {
             gameController.GetComponent<GameController>().resetLevel();
         }
+
+        if (health < 50)
+         {
+            healthBar.GetComponent<Image>().color = Color.Lerp(Color.red, Color.yellow, (float)N_root);
+         }
+         else if (health >= 50)
+         {
+            healthBar.GetComponent<Image>().color = Color.Lerp(Color.yellow, Color.green, (float)N_power);
+         }
     }
 }

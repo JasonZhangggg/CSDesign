@@ -27798,7 +27798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eee2c87d8097b14fb8eb45e7962755c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 75
+  mouseSensitivity: 50
   playerBody: {fileID: 1694040364}
   recoil: 0
   gameController: {fileID: 0}
@@ -36275,7 +36275,7 @@ CharacterController:
   m_Height: 3.8
   m_Radius: 0.6
   m_SlopeLimit: 45
-  m_StepOffset: 0.6
+  m_StepOffset: 0.8
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -36996,6 +36996,11 @@ MonoBehaviour:
   invincibilityLength: 1
   health: 0
   gameController: {fileID: 0}
+  healthColor:
+    serializedVersion: 2
+    rgba: 0
+  N_power: 0
+  N_root: 0
 --- !u!1001 &2755471966059243831
 PrefabInstance:
   m_ObjectHideFlags: 0

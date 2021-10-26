@@ -107,7 +107,6 @@ public class GameController : MonoBehaviour
     //checks if the current win condition has been met
     public void checkWin()
     {
-        Debug.Log(enemiesKilled);
         switch (winConditions[level][winPart])
         {
             case KILL_ENEMIES:
