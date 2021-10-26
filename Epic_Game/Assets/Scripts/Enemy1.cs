@@ -24,29 +24,31 @@ public class Enemy1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(!charging)
-        {
-            rb.velocity = Vector3.zero;
-            transform.LookAt(player.transform);
-            timer += Time.deltaTime;
-            if(timer >= windupTime)
+        float dist = Vector3.Distance(player.transform.position, transform.position);
+        if (dist <= 30) { 
+            if (!charging)
             {
-                timer = 0;
-                charging = true;
+                rb.velocity = Vector3.zero;
+                transform.LookAt(player.transform);
+                timer += Time.deltaTime;
+                if (timer >= windupTime)
+                {
+                    timer = 0;
+                    charging = true;
+                }
             }
-        }
-        else
-        {
-            //charges at player
-            rb.AddRelativeForce(Vector3.forward * speed);
-            timer += Time.deltaTime;
-            if(timer >= windupTime/2)
+            else
             {
-                timer = 0;
-                charging = false;
+                //charges at player
+                rb.AddRelativeForce(Vector3.forward * speed);
+                timer += Time.deltaTime;
+                if (timer >= windupTime / 2)
+                {
+                    timer = 0;
+                    charging = false;
+                }
             }
-        }
+    }
         
     }
     public void doDamage(){

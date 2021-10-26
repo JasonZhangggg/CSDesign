@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100;
     public GameObject healthBar;
     public bool invincible = false;
-    public float invincibilityLength = 1;
+    public float invincibilityLength = 0.5f;
     private float invinicbilityTimer = 0;
     public int health;
     private float healthBarSizeX;
@@ -81,7 +81,11 @@ public class PlayerHealth : MonoBehaviour
             //makes player temporarily invincible
             invincible = true;
         }
-        if(health <= 0)
+
+        else if (health <= 40) {
+            healthBar.GetComponent<Image>().color = new Color32(255, 75, 75, 255);
+        }
+        if (health <= 0)
         {
             gameController.GetComponent<GameController>().resetLevel();
         }

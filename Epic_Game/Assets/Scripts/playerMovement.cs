@@ -28,7 +28,13 @@ public class playerMovement : MonoBehaviour
     public float dashTimer = 0f;
     public float dashCooldown = 1f;
 
+    public static int hasDashed = 0;
+    public GameController gameController;
+
     // Update is called once per frame
+    void Start() {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+    }
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -62,6 +68,7 @@ public class playerMovement : MonoBehaviour
         {
             dashTimer = 0;
             isDashing = true;
+            if(gameController.winPart == 2) hasDashed = 1;
         }
  
         if (isDashing == true && dashTime < dashLength){

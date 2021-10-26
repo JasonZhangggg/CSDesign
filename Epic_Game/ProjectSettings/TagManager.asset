@@ -9,7 +9,7 @@ TagManager:
   - Fatal
   - Enemy_Bullet
   - Enemy2
-  - Reticle
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -19,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - ground
   - 
   - 
   - 
