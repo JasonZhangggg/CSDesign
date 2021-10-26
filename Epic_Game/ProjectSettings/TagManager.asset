@@ -10,6 +10,8 @@ TagManager:
   - Enemy_Bullet
   - Enemy2
   - Target
+  - Sensitivity Field
+  - Pause Menu
   layers:
   - Default
   - TransparentFX

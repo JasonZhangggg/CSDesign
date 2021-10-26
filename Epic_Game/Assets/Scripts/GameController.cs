@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
@@ -29,6 +30,13 @@ public class GameController : MonoBehaviour
     Vector3 loc;
     //Sound management
     public Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+
+    //player settings
+    public float mouseSensitivity = 75f;
+
+    //System variables
+    public GameObject pauseMenu;
+    public bool isPaused = false;
     
     // Start is called before the first frame update
     void Awake()
@@ -56,6 +64,7 @@ public class GameController : MonoBehaviour
 
         //Sounds obtained from https://mixkit.co/free-sound-effects/
 
+        pauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
     }
 
     public void playAudio(AudioSource audioSource, string audioClip)
@@ -71,6 +80,21 @@ public class GameController : MonoBehaviour
         loc = GameObject.Find("Player").transform.position;
         timeElapsed += Time.deltaTime;
         checkWin();
+
+        if(Input.GetButtonDown("Pause"))
+        {
+            isPaused = !isPaused;
+        }
+        if(isPaused)
+        {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1;
+        }
     }
 
     //adds 1 to enemies killed and total kills
@@ -123,6 +147,7 @@ public class GameController : MonoBehaviour
         enemiesKilled = 0;
         timeElapsed = 0;
         level++;
+        winPart = 0;
         SceneManager.LoadScene(levelNames[level]);
     }
     public void resetKills() {
@@ -132,7 +157,16 @@ public class GameController : MonoBehaviour
     public void resetLevel()
     {
         //Resets the scene
+        enemiesKilled = 0;
+        timeElapsed = 0;
+        winPart = 0;
         Debug.Log("You Died");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void setMouseSensitivity()
+    {
+        float sensitivity = float.Parse(GameObject.FindGameObjectWithTag("Sensitivity Field").GetComponent<Text>().text);
+        mouseSensitivity = sensitivity;
+        GameObject.Find("Player Camera").GetComponent<mouseLook>().updateMouseSensitivity();
     }
 }
