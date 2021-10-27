@@ -12,6 +12,7 @@ TagManager:
   - Target
   - Sensitivity Field
   - Pause Menu
+  - Settings Menu
   layers:
   - Default
   - TransparentFX
