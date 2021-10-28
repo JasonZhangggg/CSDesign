@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -30,12 +31,17 @@ public class GameController : MonoBehaviour
     Vector3 loc;
     //Sound management
     public Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+    public float volume = 1f;
+    public Slider volumeSlider;
+    public Text volumeLabel;
 
     //player settings
     public float mouseSensitivity = 75f;
 
     //System variables
     public GameObject pauseMenu;
+    public GameObject settingsMenu;
+    public bool settingsOpen = false;
     public bool isPaused = false;
     
     // Start is called before the first frame update
@@ -64,12 +70,20 @@ public class GameController : MonoBehaviour
 
         //Sounds obtained from https://mixkit.co/free-sound-effects/
 
-        pauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
+        
     }
 
+    //Changes volume to value selected by user
+    public void updateVolume()
+    {
+        volume = volumeSlider.value;
+        volumeLabel.text = "Volume: " + Math.Round(volumeSlider.value*100, 1);
+    }
+
+    //plays given audio clip at the given audio source
     public void playAudio(AudioSource audioSource, string audioClip)
     {
-        audioSource.PlayOneShot(audioClips[audioClip]);
+        audioSource.PlayOneShot(audioClips[audioClip], volume);
     }
 
 
@@ -81,10 +95,22 @@ public class GameController : MonoBehaviour
         timeElapsed += Time.deltaTime;
         checkWin();
 
+        //checks if user presses the pause button
         if(Input.GetButtonDown("Pause"))
         {
-            isPaused = !isPaused;
+            //if the user presses paus again it will exit the current menu
+            if(settingsOpen)
+            {
+                settingsMenu.SetActive(false);
+                settingsOpen = false;
+            }
+            else
+            {
+                pause();
+            }
         }
+
+        //stops time if game is paused, resumes time otherwise
         if(isPaused)
         {
             pauseMenu.SetActive(true);
@@ -95,6 +121,19 @@ public class GameController : MonoBehaviour
             pauseMenu.SetActive(false);
             Time.timeScale = 1;
         }
+    }
+
+    //toggles the games pause status
+    public void pause()
+    {
+        isPaused = !isPaused;
+    }
+
+    //ends program
+    public void quit()
+    {
+        //Note that this does nothing in editor mode
+        Application.Quit();
     }
 
     //adds 1 to enemies killed and total kills
@@ -149,6 +188,8 @@ public class GameController : MonoBehaviour
         winPart = 0;
         SceneManager.LoadScene(levelNames[level]);
     }
+
+    //resets kills
     public void resetKills() {
         enemiesKilled = 0;
         timeElapsed = 0;
@@ -162,6 +203,8 @@ public class GameController : MonoBehaviour
         Debug.Log("You Died");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    //updates the mouse sensitivity to match what is in the settings input field
     public void setMouseSensitivity()
     {
         float sensitivity = float.Parse(GameObject.FindGameObjectWithTag("Sensitivity Field").GetComponent<Text>().text);
