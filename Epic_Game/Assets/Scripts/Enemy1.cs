@@ -57,7 +57,7 @@ public class Enemy1 : MonoBehaviour
             gameController.GetComponent<GameController>().addKill();
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
-            gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); //doesn't work because enemy dies before sound finishes playing. Maybe erase hitbox then destroy enemy a few seconds later
+            gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); 
             Destroy(gameObject, 1);
         }
     }

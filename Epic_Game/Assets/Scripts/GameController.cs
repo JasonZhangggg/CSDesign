@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
     //System variables
     public GameObject pauseMenu;
     public GameObject settingsMenu;
+    public Text consoleCommand;
     public bool settingsOpen = false;
     public bool isPaused = false;
     
@@ -188,6 +189,25 @@ public class GameController : MonoBehaviour
         winPart = 0;
         SceneManager.LoadScene(levelNames[level]);
     }
+    void loadLevel(int levelToLoad)
+    {
+        if(levelToLoad != -1)
+        {
+            level = levelToLoad;
+            enemiesKilled = 0;
+            timeElapsed = 0;
+            winPart = 0;
+            SceneManager.LoadScene(levelNames[level]);
+        }
+        else if(levelToLoad == -1)
+        {
+            enemiesKilled = 0;
+            timeElapsed = 0;
+            winPart = 0;
+            SceneManager.LoadScene("test");
+        }
+    }
+
 
     //resets kills
     public void resetKills() {
@@ -210,5 +230,25 @@ public class GameController : MonoBehaviour
         float sensitivity = float.Parse(GameObject.FindGameObjectWithTag("Sensitivity Field").GetComponent<Text>().text);
         mouseSensitivity = sensitivity;
         GameObject.Find("Player Camera").GetComponent<mouseLook>().updateMouseSensitivity();
+    }
+
+    //reads console commands. Add more here
+    public void checkCommand()
+    {
+        String[] command = consoleCommand.text.Split(' ');
+        switch(command[0])
+        {
+            case "nextlevel":
+                nextLevel();
+                break;
+            case "load":
+                loadLevel(int.Parse(command[1]));
+                break;
+            default:
+                Debug.Log("invalid command");
+                break;
+
+        }
+        consoleCommand.text = "";
     }
 }

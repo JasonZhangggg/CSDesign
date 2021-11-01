@@ -83,6 +83,9 @@ public class Enemy2 : MonoBehaviour
         HP -= 20;
         if(HP <= 0){
             gameController.GetComponent<GameController>().addKill();
+            GetComponent<Collider>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
+            gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); 
             Destroy(gameObject);
         }
     }
