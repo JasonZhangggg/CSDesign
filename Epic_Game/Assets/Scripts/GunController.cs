@@ -28,7 +28,6 @@ public class GunController : MonoBehaviour
 
     public Camera cam;
     public GameObject player;
-    // Start is called before the first frame update
 
     private Recoil recoil;
 
@@ -55,7 +54,7 @@ public class GunController : MonoBehaviour
         DetermineRotation();
         ammoText.text = currentAmmoInClip.ToString()+"/"+clipSize;
 
-        if (Input.GetMouseButton(0) && canShoot && currentAmmoInClip > 0)
+        if (Input.GetMouseButton(0) && canShoot && currentAmmoInClip > 0 && Time.timeScale == 1)
         {
             gameController.playAudio(playerAudioSource, "Gun Shot");
             currentAmmoInClip--;
@@ -111,6 +110,7 @@ public class GunController : MonoBehaviour
         {
             spawBulletTrail(hit.point);
             GameObject hitObj = hit.transform.gameObject;
+            Debug.Log(hitObj.tag);
             if (hitObj.tag == "Enemy1")
             {
                 hitObj.GetComponent<Enemy1>().doDamage();

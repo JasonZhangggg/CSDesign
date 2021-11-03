@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour
         //checks if user presses the pause button
         if(Input.GetButtonDown("Pause"))
         {
-            //if the user presses paus again it will exit the current menu
+            //if the user presses pause again it will exit the current menu
             if(settingsOpen)
             {
                 settingsMenu.SetActive(false);
@@ -111,23 +111,26 @@ public class GameController : MonoBehaviour
             }
         }
 
-        //stops time if game is paused, resumes time otherwise
-        if(isPaused)
-        {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0;
-        }
-        else
-        {
-            pauseMenu.SetActive(false);
-            Time.timeScale = 1;
-        }
+        
     }
 
     //toggles the games pause status
     public void pause()
     {
+        //stops time if game is paused, resumes time otherwise
         isPaused = !isPaused;
+        if(isPaused)
+        {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     //ends program

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4793117959487960721}
   - component: {fileID: 3904752311370716278}
   - component: {fileID: -3906180280981519079}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Enemy 2
   m_TagString: Enemy2
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4793117959487960722}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2262cc749d4bcd14585fd8abb601d496, type: 3}
   m_Name: 

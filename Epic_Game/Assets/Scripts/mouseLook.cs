@@ -24,19 +24,20 @@ public class mouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 1)
+        {
+            Vector2 mouseAxis = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
-        
-        Vector2 mouseAxis = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+            mouseAxis *= mouseSensitivity / 100;
+            currentRotation += mouseAxis;
 
-        mouseAxis *= mouseSensitivity / 100;
-        currentRotation += mouseAxis;
+            currentRotation.y = Mathf.Clamp(currentRotation.y, -90, 90);
 
-        currentRotation.y = Mathf.Clamp(currentRotation.y, -90, 90);
+            transform.GetChild(0).localPosition += (Vector3)mouseAxis * 10 / 1000;
 
-        transform.GetChild(0).localPosition += (Vector3)mouseAxis * 10 / 1000;
-
-        player.transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.up);
-        cam.transform.localRotation = Quaternion.AngleAxis(-currentRotation.y, Vector3.right);
+            player.transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.up);
+            cam.transform.localRotation = Quaternion.AngleAxis(-currentRotation.y, Vector3.right);
+        }
         
     }
 

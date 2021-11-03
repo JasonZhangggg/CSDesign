@@ -57,6 +57,7 @@ public class Enemy2 : MonoBehaviour
         rb.AddRelativeForce((1 * Time.deltaTime * speed * direction),0,0);
         rb.velocity += Vector3.up * rb.velocity.y * 0.01f;
         
+        /* There's an issue with this. It only works if the enemy 2 object ignores raycast, butit need to be hit by the players raycasts.
         RaycastHit hit;
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 100, Color.blue);
         if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 100))
@@ -70,6 +71,7 @@ public class Enemy2 : MonoBehaviour
                 GetComponent<Enemy_Shoot_Bullet>().enabled = false;
             }
         }
+        */
 
     }
 
@@ -86,7 +88,7 @@ public class Enemy2 : MonoBehaviour
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
             gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); 
-            Destroy(gameObject);
+            Destroy(gameObject, 1);
         }
     }
 }
