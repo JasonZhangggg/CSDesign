@@ -5,13 +5,11 @@ using UnityEngine;
 public class mouseLook : MonoBehaviour
 {
 
-    public float mouseSensitivity;
-
-    public Transform playerBody;
-
-    float xRotation = 0f;
-
+    public GameObject player;
+    private float mouseSensitivity = 1;
+    private Vector2 currentRotation;
     public float recoil = 0f;
+    public Camera cam;
 
     public GameController gameController;
 
@@ -26,32 +24,20 @@ public class mouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime + recoil;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
-
-        if(recoil >= 0f)
-        {
-            recoil -= Time.deltaTime * 100;
-        }
         
-        if(recoil < 0f)
-        {
-            recoil = 0f;
-        }
-        if(Time.timeScale == 0)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+        Vector2 mouseAxis = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+
+        mouseAxis *= mouseSensitivity / 100;
+        currentRotation += mouseAxis;
+
+        currentRotation.y = Mathf.Clamp(currentRotation.y, -90, 90);
+
+        transform.GetChild(0).localPosition += (Vector3)mouseAxis * 10 / 1000;
+
+        player.transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.up);
+        cam.transform.localRotation = Quaternion.AngleAxis(-currentRotation.y, Vector3.right);
+        
     }
 
     public void addRecoil(float recoilAmount)

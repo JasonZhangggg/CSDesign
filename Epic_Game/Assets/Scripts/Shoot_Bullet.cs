@@ -36,6 +36,7 @@ public class Shoot_Bullet : MonoBehaviour
     {
         ammoText.text = counter.ToString()+"/12";
         //checks if "fire" button was pressed.
+        
         if(Input.GetButtonDown("Fire1") && !isReloading && Time.timeScale != 0)
         {
             //Instantiates a bullet slightly in from of the player and adds a force on it's z axis
