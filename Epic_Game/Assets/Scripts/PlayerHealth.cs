@@ -48,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
     }
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Enemy1")
+        if(col.gameObject.tag == "Enemy1" || col.gameObject.tag == "Enemy3")
         {
             takeDamage(20);
             Vector3 force = transform.position -  col.transform.position;
