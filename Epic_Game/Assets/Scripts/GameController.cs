@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     //Variables holding information about each level
     public int[][] winConditions = new int[][]{ new int[]{LOCATION, LOCATION, ACTION, KILL_ENEMIES, KILL_ENEMIES}, new int[]{ KILL_ENEMIES } };
     public int[][] winValues = new int[][] {new int[]{ 9, 23, 1, 3, 1 }, new int[]{ 60 } };
-    public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Right click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" } };
+    public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Left click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" } };
 
     public string[] levelNames = {"Level 1", "Level 2"};
     public int level = 0;
@@ -68,6 +68,7 @@ public class GameController : MonoBehaviour
         audioClips.Add("Reload1", Resources.Load<AudioClip>("Audio/mixkit-handgun-release-1664"));
         audioClips.Add("Reload2", Resources.Load<AudioClip>("Audio/mixkit-handgun-click-1660"));
         audioClips.Add("Explosion", Resources.Load<AudioClip>("Audio/mixkit-short-explosion-1694"));
+        audioClips.Add("Enemy Gun Shot", Resources.Load<AudioClip>("Audio/mixkit-short-laser-gun-shot-1670"));
 
         //Sounds obtained from https://mixkit.co/free-sound-effects/
 

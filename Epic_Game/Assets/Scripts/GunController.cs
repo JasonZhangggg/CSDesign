@@ -119,6 +119,10 @@ public class GunController : MonoBehaviour
             {
                 hitObj.GetComponent<Enemy2>().doDamage();
             }
+            else if (hitObj.tag == "Enemy3")
+            {
+                hitObj.GetComponent<Enemy3>().doDamage();
+            }
             else if (hit.transform.tag == "Target")
             {
                 Destroy(hitObj);

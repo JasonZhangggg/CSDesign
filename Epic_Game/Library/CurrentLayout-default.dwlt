@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 678, y: 492}
   m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 55
+  controlID: 126
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -393,20 +393,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 42b70000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 58b3ffff0eb9ffff46c0ffff58c4ffffcecdffffa6cfffff0ed2ffffced8ffff9adbffffccddffff8adffffffae7ffff64edffff4af0ffff66f2ffff68f4ffff24f8ffff62fbfffff4ffffff
+      m_SelectedIDs: 24530000
+      m_LastClickedID: 21284
+      m_ExpandedIDs: 9e46ffffac5affff665fffff0260fffffe61ffff9a62ffff9065ffff8669ffff8e76ffff20a4ffffead6ffff84d7ffff62fbffff66fbffff643b00004a52000012530000245300007e5300009a5300009e7c0000b67c00001e7d0000307d0000587d0000a0830000b88300002084000032840000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Enemy3
-        m_OriginalName: Enemy3
+        m_Name: AK-47
+        m_OriginalName: AK-47
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 38228
+        m_UserData: 21284
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -455,9 +455,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -10.562528, y: 8.838119, z: 10.09966}
+    m_Target: {x: -8.538841, y: 7.9782844, z: 16.395592}
     speed: 2
-    m_Value: {x: -10.562528, y: 8.838119, z: 10.09966}
+    m_Value: {x: -8.538841, y: 7.9782844, z: 16.395592}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -503,13 +503,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.56278026, y: 0.07906195, z: -0.054193493, w: 0.8210303}
+    m_Target: {x: 0.32226062, y: 0.61118394, z: -0.29931515, w: 0.6580371}
     speed: 2
-    m_Value: {x: 0.56278026, y: 0.07906195, z: -0.054193493, w: 0.8210303}
+    m_Value: {x: 0.32226062, y: 0.61118394, z: -0.29931515, w: 0.6580371}
   m_Size:
-    m_Target: 0.8660254
+    m_Target: 0.6766194
     speed: 2
-    m_Value: 0.8660254
+    m_Value: 0.6766194
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -584,9 +584,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 14}
-    m_SelectedIDs: da860000
-    m_LastClickedID: 34522
-    m_ExpandedIDs: 00000000fc3c0000fe3c0000003d0000023d0000043d0000063d000000ca9a3b
+    m_SelectedIDs: 1a3d0000
+    m_LastClickedID: 15642
+    m_ExpandedIDs: 00000000fc3c0000fe3c0000003d0000023d0000043d0000063d0000163d00007e40000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -602,7 +602,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 10}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -728,7 +728,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewResizer:
-    m_CachedPref: 160
+    m_CachedPref: 157
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
