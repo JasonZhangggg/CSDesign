@@ -6,34 +6,40 @@ public class playerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
-    public float gravity = 9.81f;
-    public float jumpHeight = 3f;
+    private float gravity = -20f;
+    private float jumpHeight = 3f;
 
     public Transform groundCheck;
-    public float groundDistance = 0.4f;
+    private float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    Vector3 velocity;
-    bool isGrounded;
+    private Vector3 velocity;
+    private bool isGrounded;
 
     public float speed = 12f;
 
-    Vector3 impact = Vector3.zero;
-    float mass = 3.0F; // defines the character mass
+    private Vector3 impact = Vector3.zero;
+    private float mass = 3.0F; // defines the character mass
 
     private float dashTime = 0f;
     private bool isDashing = false;
-    public float dashLength = 0.15f;
-    public float dashSpeed = 75f;
-    public float dashTimer = 0f;
-    public float dashCooldown = 1f;
+    private float dashLength = 0.15f;
+    private float dashSpeed = 75f;
+    private float dashTimer = 0f;
+    private float dashCooldown = 1f;
 
     public static int hasDashed = 0;
     public GameController gameController;
 
+    private int selectedWeapon;
+    private int totalWeapons;
+    private GameObject[] weapons;
+
     // Update is called once per frame
     void Start() {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        weapons = GameObject.FindGameObjectsWithTag("Weapon");
+
     }
     void Update()
     {
@@ -82,7 +88,30 @@ public class playerMovement : MonoBehaviour
         }
         if(!isDashing && dashTimer< dashCooldown+0.1){
             dashTimer += Time.deltaTime;
-        } 
+        }
+
+
+        //swap weapons
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            if (selectedWeapon >= totalWeapons - 1) selectedWeapon = 0;
+            else selectedWeapon++;
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            if (selectedWeapon <= 0) selectedWeapon = totalWeapons - 1;
+            else selectedWeapon--;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) selectedWeapon = 0;
+        if (Input.GetKeyDown(KeyCode.Alpha2)) selectedWeapon = 1;
+
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (i == selectedWeapon) weapons[i].SetActive(true);
+            else weapons[i].SetActive(false);
+        }
     }
 
     public void AddImpact(Vector3 dir, float force){

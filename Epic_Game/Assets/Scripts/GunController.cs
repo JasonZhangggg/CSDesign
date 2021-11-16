@@ -8,7 +8,7 @@ public class GunController : MonoBehaviour
     public Vector3 normalLocalPosition;
     public Vector3 aimingLocalPosition;
 
-    public GameObject crosshair;
+    private GameObject crosshair;
 
     private Vector3 desiredPosition;
     private Vector3 target;
@@ -18,30 +18,39 @@ public class GunController : MonoBehaviour
 
     public float fireRate = 0.12f;
 
-    private int clipSize = 24;
-    public float reloadTime = 0f;
-    public bool isReloading = false;
-    bool soundPlayed = false;
+    public int clipSize = 24;
+    private float reloadTime = 0f;
+    private bool isReloading = false;
+    private bool soundPlayed = false;
+    public bool fullAuto;
 
     private bool canShoot = true;
     private int currentAmmoInClip;
 
-    public Camera cam;
-    public GameObject player;
+    private Camera cam;
+    private GameObject player;
 
     private Recoil recoil;
 
     private AudioSource playerAudioSource;
 
-    public Text ammoText;
+    private Text ammoText;
 
     public LineRenderer bulletTrail;
-    public GameObject barrelLoc;
+    private GameObject barrelLoc;
+
+ 
+
     void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         currentAmmoInClip = clipSize;
         playerAudioSource = GetComponent<AudioSource>();
+        crosshair = GameObject.Find("/HUD/Crosshair");
+        ammoText = GameObject.Find("/HUD/Ammo").GetComponent<Text>();
+        player = GameObject.Find("Player");
+        cam = GameObject.Find("/Player/CameraRotation/CameraRecoil/PlayerCamera").GetComponent<Camera>();
+        barrelLoc = transform.Find("BulletLoc").gameObject;
 
         recoil = GameObject.Find("CameraRecoil").GetComponent<Recoil>();
 
@@ -54,12 +63,11 @@ public class GunController : MonoBehaviour
         DetermineRotation();
         ammoText.text = currentAmmoInClip.ToString()+"/"+clipSize;
 
-        if (Input.GetMouseButton(0) && canShoot && currentAmmoInClip > 0 && Time.timeScale == 1)
+        if (Input.GetMouseButton(0) && canShoot && currentAmmoInClip > 0 && Time.timeScale == 1 && fullAuto)
         {
-            gameController.playAudio(playerAudioSource, "Gun Shot");
-            currentAmmoInClip--;
             StartCoroutine(ShootGun());
         }
+        else if (Input.GetButtonDown("Fire1") && currentAmmoInClip > 0 && Time.timeScale == 1 && !fullAuto) shoot();
         if (Input.GetButtonDown("Reload") && !isReloading && clipSize > currentAmmoInClip)
         {
             //manually reloads
@@ -82,10 +90,8 @@ public class GunController : MonoBehaviour
             reloadTime = 0;
             isReloading = false;
             soundPlayed = false;
-            currentAmmoInClip = 24;
+            currentAmmoInClip = clipSize;
         }
-
-
     }
     private void DetermineAim()
     {
@@ -134,11 +140,16 @@ public class GunController : MonoBehaviour
     private IEnumerator ShootGun()
     {
         canShoot = false;
+        shoot();
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
+    }
+    private void shoot() {
+        gameController.playAudio(playerAudioSource, "Gun Shot");
+        currentAmmoInClip--;
         RaycastForEnemy();
         kickBack();
         recoil.RecoilFire();
-        yield return new WaitForSeconds(fireRate);
-        canShoot = true;
     }
 
     private void kickBack() {
