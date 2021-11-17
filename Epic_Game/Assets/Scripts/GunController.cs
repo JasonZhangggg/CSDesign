@@ -55,7 +55,7 @@ public class GunController : MonoBehaviour
         crosshair = GameObject.Find("/HUD/Crosshair");
         ammoText = GameObject.Find("/HUD/Ammo").GetComponent<Text>();
         player = GameObject.Find("Player");
-        cam = GameObject.Find("/Player/CameraRotation/CameraRecoil/PlayerCamera").GetComponent<Camera>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         barrelLoc = transform.Find("BulletLoc").gameObject;
 
         recoil = GameObject.Find("CameraRecoil").GetComponent<Recoil>();

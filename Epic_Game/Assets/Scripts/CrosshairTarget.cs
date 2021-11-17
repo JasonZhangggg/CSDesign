@@ -17,7 +17,7 @@ public class CrosshairTarget : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam = GameObject.Find("/Player/CameraRotation/CameraRecoil/PlayerCamera").GetComponent<Camera>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         crosshair1 = GameObject.Find("/HUD/Crosshair/Canvas/crosshair1");
         crosshair2 = GameObject.Find("/HUD/Crosshair/Canvas/crosshair2");
         crosshair3 = GameObject.Find("/HUD/Crosshair/Canvas/crosshair3");

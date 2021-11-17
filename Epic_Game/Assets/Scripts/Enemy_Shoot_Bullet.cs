@@ -10,7 +10,7 @@ public class Enemy_Shoot_Bullet : MonoBehaviour
     public GameController gameController;
 
     public float fireRate = 2;
-    private float timer = 0;
+    public float timer = 0;
 
     //creates variables relating to bullet mechanics
     public float bulletSpeed = 20f;

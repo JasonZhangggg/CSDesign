@@ -87,6 +87,7 @@ public class Enemy2 : MonoBehaviour
             gameController.GetComponent<GameController>().addKill();
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<Enemy_Shoot_Bullet>().enabled = false;
             gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); 
             Destroy(gameObject, 1);
         }
