@@ -31,8 +31,8 @@ public class playerMovement : MonoBehaviour
     public static int hasDashed = 0;
     public GameController gameController;
 
-    private int selectedWeapon;
-    private int totalWeapons;
+    private int selectedWeapon = 0;
+    private int totalWeapons = 2;
     private GameObject[] weapons;
 
     // Update is called once per frame
@@ -94,7 +94,7 @@ public class playerMovement : MonoBehaviour
         //swap weapons
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if (selectedWeapon >= totalWeapons - 1) selectedWeapon = 0;
+            if (selectedWeapon >= totalWeapons-1) selectedWeapon = 0;
             else selectedWeapon++;
         }
 

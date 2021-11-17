@@ -39,7 +39,13 @@ public class GunController : MonoBehaviour
     public LineRenderer bulletTrail;
     private GameObject barrelLoc;
 
- 
+    public Transform raycastDest;
+    Ray ray;
+    RaycastHit hitInfo;
+
+    public TrailRenderer tracerEffect;
+    public ParticleSystem muzzleFlash;
+    public ParticleSystem hitEffect;
 
     void Start()
     {
@@ -61,7 +67,7 @@ public class GunController : MonoBehaviour
     {
         DetermineAim();
         DetermineRotation();
-        ammoText.text = currentAmmoInClip.ToString()+"/"+clipSize;
+        ammoText.text = currentAmmoInClip.ToString() + "/" + clipSize;
 
         if (Input.GetMouseButton(0) && canShoot && currentAmmoInClip > 0 && Time.timeScale == 1 && fullAuto)
         {
@@ -106,16 +112,40 @@ public class GunController : MonoBehaviour
         transform.localPosition = desiredPosition;
     }
 
-    private void DetermineRotation() {
+    private void DetermineRotation()
+    {
 
     }
+    /*
     private void RaycastForEnemy()
     {
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f))
         {
             spawBulletTrail(hit.point);
-            GameObject hitObj = hit.transform.gameObject;
+
+        }
+    }*/
+    
+    private void RaycastForEnemy()
+    {
+        //ray.origin = barrelLoc.transform.position;
+
+        //ray.direction = hit.point-barrelLoc.transform.position;
+        var tracer = Instantiate(tracerEffect, barrelLoc.transform.position, Quaternion.identity);
+        tracer.AddPosition(barrelLoc.transform.position);
+        //if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f))
+        ray.origin = barrelLoc.transform.position;
+        ray.direction = raycastDest.position - barrelLoc.transform.position;
+
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            tracer.transform.position = hitInfo.point;
+            hitEffect.transform.position = hitInfo.point;
+            hitEffect.transform.forward = hitInfo.normal;
+            hitEffect.Emit(1);
+            GameObject hitObj = hitInfo.transform.gameObject;
+            
             Debug.Log(hitObj.tag);
             if (hitObj.tag == "Enemy1")
             {
@@ -129,7 +159,7 @@ public class GunController : MonoBehaviour
             {
                 hitObj.GetComponent<Enemy3>().doDamage();
             }
-            else if (hit.transform.tag == "Target")
+            else if (hitObj.tag == "EnemyTarget")
             {
                 Destroy(hitObj);
                 gameController.addKill();
@@ -144,19 +174,22 @@ public class GunController : MonoBehaviour
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
     }
-    private void shoot() {
+    private void shoot()
+    {
         gameController.playAudio(playerAudioSource, "Gun Shot");
+        muzzleFlash.Emit(1);
         currentAmmoInClip--;
         RaycastForEnemy();
         kickBack();
         recoil.RecoilFire();
     }
 
-    private void kickBack() {
-        transform.localPosition -= Vector3.forward * 0.1f; 
+    private void kickBack()
+    {
+        transform.localPosition -= Vector3.forward * 0.1f;
     }
-    public void spawBulletTrail(Vector3 hitPos) {
-        Debug.Log("Creating thing");
+    public void spawBulletTrail(Vector3 hitPos)
+    {
         GameObject bulletTrailEffect = Instantiate(bulletTrail.gameObject, barrelLoc.transform.position, Quaternion.identity);
         LineRenderer LineR = bulletTrailEffect.GetComponent<LineRenderer>();
         LineR.SetPosition(0, barrelLoc.transform.position);

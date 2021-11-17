@@ -9,12 +9,12 @@ TagManager:
   - Fatal
   - Enemy_Bullet
   - Enemy2
-  - Target
   - Sensitivity Field
   - Pause Menu
   - Settings Menu
   - Enemy3
   - Weapon
+  - EnemyTarget
   layers:
   - Default
   - TransparentFX
