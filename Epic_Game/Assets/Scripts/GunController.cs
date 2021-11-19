@@ -47,6 +47,7 @@ public class GunController : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public ParticleSystem hitEffect;
 
+    //public playerMovement movement;
     void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
@@ -74,6 +75,14 @@ public class GunController : MonoBehaviour
             StartCoroutine(ShootGun());
         }
         else if (Input.GetButtonDown("Fire1") && currentAmmoInClip > 0 && Time.timeScale == 1 && !fullAuto) shoot();
+        if (Input.GetMouseButton(0) && fullAuto && currentAmmoInClip > 0) {
+            playerMovement.speed = 4;
+        }
+        else
+        {
+            Debug.Log("Test");
+            playerMovement.speed = 10;
+        }
         if (Input.GetButtonDown("Reload") && !isReloading && clipSize > currentAmmoInClip)
         {
             //manually reloads
@@ -116,37 +125,20 @@ public class GunController : MonoBehaviour
     {
 
     }
-    /*
-    private void RaycastForEnemy()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f))
-        {
-            spawBulletTrail(hit.point);
-
-        }
-    }*/
     
     private void RaycastForEnemy()
     {
-        //ray.origin = barrelLoc.transform.position;
-
-        //ray.direction = hit.point-barrelLoc.transform.position;
         var tracer = Instantiate(tracerEffect, barrelLoc.transform.position, Quaternion.identity);
         tracer.AddPosition(barrelLoc.transform.position);
-        //if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f))
         ray.origin = barrelLoc.transform.position;
         ray.direction = raycastDest.position - barrelLoc.transform.position;
 
         if (Physics.Raycast(ray, out hitInfo))
         {
             tracer.transform.position = hitInfo.point;
-            hitEffect.transform.position = hitInfo.point;
-            hitEffect.transform.forward = hitInfo.normal;
-            hitEffect.Emit(1);
+
             GameObject hitObj = hitInfo.transform.gameObject;
-            
-            Debug.Log(hitObj.tag);
+
             if (hitObj.tag == "Enemy1")
             {
                 hitObj.GetComponent<Enemy1>().doDamage();
@@ -165,6 +157,16 @@ public class GunController : MonoBehaviour
                 gameController.addKill();
                 GameObject.Find("Targets").GetComponent<PracticeTargets>().hit();
             }
+            else {
+                hitEffect.transform.position = hitInfo.point;
+                hitEffect.transform.forward = hitInfo.normal;
+                hitEffect.Emit(1);
+            }
+        }
+        else
+        {
+            tracer.transform.position = ray.origin + ray.direction * 50;
+
         }
     }
     private IEnumerator ShootGun()

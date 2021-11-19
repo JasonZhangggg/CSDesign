@@ -7,13 +7,14 @@ public class CrosshairTarget : MonoBehaviour
     Camera cam;
     Ray ray;
     RaycastHit hitInfo;
-    public GameObject crosshair1;
-    public GameObject crosshair2;
-    public GameObject crosshair3;
-    public GameObject crosshair4;
+    private GameObject crosshair1;
+    private GameObject crosshair2;
+    private GameObject crosshair3;
+    private GameObject crosshair4;
 
-    public Color32 crosshairColor;
+    private Color32 crosshairColor;
 
+    public GameObject barrelLoc;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class CrosshairTarget : MonoBehaviour
         crosshair3 = GameObject.Find("/HUD/Crosshair/Canvas/crosshair3");
         crosshair4 = GameObject.Find("/HUD/Crosshair/Canvas/crosshair4");
         crosshairColor = Color.white;
-
+        //barrelLoc = transform.Find("/Player/CameraRotation/CamerRecoil/PlayerCamera/AK-47/BulletLoc").gameObject;
     }
 
     // Update is called once per frame
@@ -32,16 +33,22 @@ public class CrosshairTarget : MonoBehaviour
 
         ray.origin = cam.transform.position;
         ray.direction = cam.transform.forward;
-        Physics.Raycast(ray, out hitInfo);
-        transform.position = hitInfo.point;
-        if (hitInfo.transform.gameObject.tag.Contains("Enemy"))
+        if (Physics.Raycast(ray, out hitInfo))
         {
-            Debug.Log("Enemy");
-            crosshairColor = new Color32(255, 0, 0, 255);
+            transform.position = hitInfo.point;
+            if (hitInfo.transform.gameObject.tag.Contains("Enemy"))
+            {
+                Debug.Log("Enemy");
+                crosshairColor = new Color32(255, 0, 0, 255);
+            }
+            else
+            {
+                crosshairColor = Color.white;
+
+            }
         }
         else {
-            crosshairColor = Color.white;
-
+            transform.position = barrelLoc.transform.position + barrelLoc.transform.TransformDirection(new Vector3(0, 0, 50));
         }
         crosshair1.GetComponent<Image>().color = crosshairColor;
         crosshair2.GetComponent<Image>().color = crosshairColor;

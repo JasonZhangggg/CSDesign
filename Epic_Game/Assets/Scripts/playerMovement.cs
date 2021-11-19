@@ -16,7 +16,7 @@ public class playerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
-    public float speed = 12f;
+    public static float speed = 10f;
 
     private Vector3 impact = Vector3.zero;
     private float mass = 3.0F; // defines the character mass
