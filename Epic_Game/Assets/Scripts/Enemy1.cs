@@ -12,20 +12,20 @@ public class Enemy1 : MonoBehaviour
     public float speed = 100;
     public Rigidbody rb;
     public int HP = 100;
-    public GameObject gameController;
+     public GameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        gameController = GameObject.Find("Game Controller");
+        gameController = GameObject.Find("Game Controller").GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float dist = Vector3.Distance(player.transform.position, transform.position);
-        if (dist <= 30) { 
+        if (dist <= 50) { 
             if (!charging)
             {
                 rb.velocity = Vector3.zero;
@@ -53,11 +53,20 @@ public class Enemy1 : MonoBehaviour
     }
     public void doDamage(){
         HP -= 20;
+        
+        if(gameController.betterAudio)
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 
+        }
+        else
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
+        } 
         if(HP <= 0){
-            gameController.GetComponent<GameController>().addKill();
+            gameController.addKill();
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
-            gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); 
+            gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
             Destroy(gameObject, 1);
         }
     }

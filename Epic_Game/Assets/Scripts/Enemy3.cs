@@ -9,7 +9,8 @@ public class Enemy3 : MonoBehaviour
     public float speed = 0.5f;
     public Rigidbody rb;
     public int HP = 100;
-    public GameObject gameController;
+    public float range = 50f;
+    public GameController gameController;
 
     //movement variables
     bool traveling = false;
@@ -30,16 +31,25 @@ public class Enemy3 : MonoBehaviour
     float moveZ;
     double moveAngle;
 
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        gameController = GameObject.Find("Game Controller");
+        gameController = GameObject.Find("Game Controller").GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Vector3.Distance(transform.position, player.transform.position) > range)
+        {
+            GetComponent<Enemy_Shoot_Bullet>().enabled = false;
+        }
+        else
+        {
+            GetComponent<Enemy_Shoot_Bullet>().enabled = true;
+        }
         if(Time.timeScale == 1)
         {
             transform.LookAt(player.transform);
@@ -94,11 +104,20 @@ public class Enemy3 : MonoBehaviour
     
     public void doDamage(){
         HP -= 20;
+        
+        if(gameController.betterAudio)
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 
+        }
+        else
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
+        } 
         if(HP <= 0){
-            gameController.GetComponent<GameController>().addKill();
+            gameController.addKill();
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
-            gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); 
+            gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
             Destroy(gameObject, 1);
         }
     }

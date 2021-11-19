@@ -15,13 +15,13 @@ public class Enemy2 : MonoBehaviour
     public int HP = 100;
     private int direction = 4;
     public Component Enemy_Shoot_Bullet;
-    public GameObject gameController;
+    public GameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        gameController = GameObject.Find("Game Controller");
+        gameController = GameObject.Find("Game Controller").GetComponent<GameController>();
     }
 
 
@@ -35,6 +35,7 @@ public class Enemy2 : MonoBehaviour
         float dist = Vector3.Distance(transform.position, player.transform.position);
         if(dist > attackRange)
         {
+            GetComponent<Enemy_Shoot_Bullet>().enabled = false;
             rb.AddRelativeForce(Vector3.forward * speed);
         }
         else if(dist < closeRange)
@@ -43,6 +44,8 @@ public class Enemy2 : MonoBehaviour
         }
         else if(attackRange > dist && dist > closeRange)
         {
+            
+            GetComponent<Enemy_Shoot_Bullet>().enabled = true;
             rb.velocity -= rb.velocity * (0.99f * Time.deltaTime);
         }
 
@@ -83,12 +86,21 @@ public class Enemy2 : MonoBehaviour
 
     public void doDamage(){
         HP -= 20;
+        
+        if(gameController.betterAudio)
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 
+        }
+        else
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
+        }
         if(HP <= 0){
-            gameController.GetComponent<GameController>().addKill();
+            gameController.addKill();
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Enemy_Shoot_Bullet>().enabled = false;
-            gameController.GetComponent<GameController>().playAudio(GetComponent<AudioSource>(), "Explosion"); 
+            gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
             Destroy(gameObject, 1);
         }
     }

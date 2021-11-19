@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 
     //Variables holding information about each level
     public int[][] winConditions = new int[][]{ new int[]{LOCATION, LOCATION, ACTION, KILL_ENEMIES, KILL_ENEMIES}, new int[]{ KILL_ENEMIES } };
-    public int[][] winValues = new int[][] {new int[]{ 9, 23, 1, 3, 1 }, new int[]{ 60 } };
+    public int[][] winValues = new int[][] {new int[]{ 9, 23, 1, 3, 1 }, new int[]{ 9 } };
     public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Left click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" } };
 
     public string[] levelNames = {"Level 1", "Level 2"};
@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     public float volume = 1f;
     public Slider volumeSlider;
     public Text volumeLabel;
+    public bool betterAudio = false;
 
     //player settings
     public float mouseSensitivity = 75f;
@@ -69,6 +70,8 @@ public class GameController : MonoBehaviour
         audioClips.Add("Reload2", Resources.Load<AudioClip>("Audio/mixkit-handgun-click-1660"));
         audioClips.Add("Explosion", Resources.Load<AudioClip>("Audio/mixkit-short-explosion-1694"));
         audioClips.Add("Enemy Gun Shot", Resources.Load<AudioClip>("Audio/mixkit-short-laser-gun-shot-1670"));
+        audioClips.Add("Enemy Hit", Resources.Load<AudioClip>("Audio/mixkit-cowbell-sharp-hit-1743"));
+        audioClips.Add("Better Enemy Hit", Resources.Load<AudioClip>("Audio/mixkit-man-in-pain-2197"));
 
         //Sounds obtained from https://mixkit.co/free-sound-effects/
 
@@ -254,5 +257,10 @@ public class GameController : MonoBehaviour
 
         }
         consoleCommand.text = "";
+    }
+
+    public void toggleBetterAudio()
+    {
+        betterAudio = !betterAudio;
     }
 }
