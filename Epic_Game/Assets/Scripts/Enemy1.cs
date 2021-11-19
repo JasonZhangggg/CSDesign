@@ -2,30 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using Random = UnityEngine.Random;
 public class Enemy1 : MonoBehaviour
 {
     public GameObject player;
     public bool charging = false;
-    public float windupTime = 5;
+    public float windupTime;
     public float timer = 0;
-    public float speed = 100;
+    private float speed = 30;
     public Rigidbody rb;
     public int HP = 100;
-     public GameController gameController;
-
+    public GameController gameController;
+    Vector3 targetPos;
+    private float windUpMax=5f;
+    private float windUpMin=2f;
+    public bool startAttacking = false;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         gameController = GameObject.Find("Game Controller").GetComponent<GameController>();
+        windupTime = Random.Range(windUpMin, windUpMax);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (HP <= 50) {
+            speed = 50;
+            windUpMin = 1;
+            windUpMax = 2.5f;
+        }
         float dist = Vector3.Distance(player.transform.position, transform.position);
-        if (dist <= 50) { 
+        if (dist <= 60) startAttacking = true;
+        if (startAttacking) { 
             if (!charging)
             {
                 rb.velocity = Vector3.zero;
@@ -34,17 +44,17 @@ public class Enemy1 : MonoBehaviour
                 if (timer >= windupTime)
                 {
                     timer = 0;
+                    targetPos = player.transform.position;
                     charging = true;
                 }
             }
             else
             {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
                 //charges at player
-                rb.AddRelativeForce(Vector3.forward * speed);
-                timer += Time.deltaTime;
-                if (timer >= windupTime / 2)
+                if (targetPos == transform.position)
                 {
-                    timer = 0;
+                    windupTime = Random.Range(windUpMin, windUpMax);
                     charging = false;
                 }
             }

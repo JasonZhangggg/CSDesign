@@ -80,7 +80,6 @@ public class GunController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Test");
             playerMovement.speed = 10;
         }
         if (Input.GetButtonDown("Reload") && !isReloading && clipSize > currentAmmoInClip)

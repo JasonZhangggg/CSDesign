@@ -119,5 +119,8 @@ public class playerMovement : MonoBehaviour
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
         impact += dir.normalized * force / mass;
     }
-
+    public bool inRange(Vector3 point, float dist) {
+        if (Vector3.Distance(transform.position, point) <= dist) return true;
+        return false;
+    }
 }
