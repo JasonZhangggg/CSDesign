@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 public class Enemy1 : MonoBehaviour
 {
     public GameObject player;
@@ -17,6 +18,7 @@ public class Enemy1 : MonoBehaviour
     private float windUpMax=5f;
     private float windUpMin=2f;
     public bool startAttacking = false;
+    public Slider slider;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,8 @@ public class Enemy1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        slider.value = (float) HP / 100;
+
         if (HP <= 50) {
             speed = 50;
             windUpMin = 1;
@@ -77,7 +81,7 @@ public class Enemy1 : MonoBehaviour
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
             gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
-            Destroy(gameObject, 1);
+            Destroy(gameObject);
         }
     }
 }
