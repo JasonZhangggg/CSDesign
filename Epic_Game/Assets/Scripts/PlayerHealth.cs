@@ -62,7 +62,6 @@ public class PlayerHealth : MonoBehaviour
     }
     void OnTriggerEnter(Collider trig)
     {
-        Debug.Log("trigger");
         if(trig.gameObject.tag == "Fatal")
         {
             

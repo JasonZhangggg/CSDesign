@@ -42104,7 +42104,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &773894107
 GameObject:
@@ -57850,7 +57850,7 @@ Transform:
   - {fileID: 1804729271}
   - {fileID: 998398453}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1620089044
 GameObject:
@@ -58077,6 +58077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2afc9e7bf802651418ee77baa637aa4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keysCollected: 0
   enemiesKilled: 0
   totalKills: 0
   timeElapsed: 0
@@ -58636,7 +58637,7 @@ GameObject:
   - component: {fileID: 2033713788}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

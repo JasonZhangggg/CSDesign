@@ -23,6 +23,10 @@ public class UIObjective : MonoBehaviour
         {
             winCondition = "Survive " + gameController.winValues[gameController.level][gameController.winPart] + " Seconds";
         }
+        else if (gameController.objText[gameController.level][gameController.winPart] == "Collect")
+        {
+            winCondition = "Collect " + gameController.winValues[gameController.level][gameController.winPart] + " Keys";
+        }
         else
         {
             winCondition = gameController.objText[gameController.level][gameController.winPart];

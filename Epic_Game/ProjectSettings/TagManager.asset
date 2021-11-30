@@ -16,6 +16,7 @@ TagManager:
   - Weapon
   - EnemyTarget
   - Target
+  - Key
   layers:
   - Default
   - TransparentFX

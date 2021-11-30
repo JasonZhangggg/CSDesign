@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     private const int COLLECT = 5;
 
     //Player stats
+    public int keysCollected = 0;
     public int enemiesKilled = 0;
     public int totalKills = 0;
     public float timeElapsed = 0;
@@ -22,9 +23,9 @@ public class GameController : MonoBehaviour
     //Variables holding information about each level
     public int[][] winConditions = new int[][]{ new int[]{LOCATION, LOCATION, ACTION, KILL_ENEMIES, KILL_ENEMIES}, new int[]{ KILL_ENEMIES }, new int[]{COLLECT} };
     public int[][] winValues = new int[][] {new int[]{ 9, 23, 1, 3, 1 }, new int[]{ 9 }, new int[]{10} };
-    public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Left click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" }, new string[]{"Kill"} };
+    public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Left click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" }, new string[]{"Collect"} };
 
-    public string[] levelNames = {"Level 1", "Level 2", "Level 3"};
+    private string[] levelNames = {"Level 1", "Level 2", "Level 3"};
     public int level = 0;
     public int winPart = 0;
 
@@ -152,6 +153,12 @@ public class GameController : MonoBehaviour
         totalKills++;
     }
 
+    //adds 1 to the number of keys collected
+    public void keyCollected()
+    {
+        keysCollected++;
+    }
+
     //checks if the current win condition has been met
     public void checkWin()
     {
@@ -178,6 +185,12 @@ public class GameController : MonoBehaviour
                     winPart++;
                 }
                 break;
+            case COLLECT:
+                if (keysCollected == winValues[level][winPart]){
+                    resetKills();
+                    winPart++;
+                }
+                break;
             default:
                 Debug.Log("Invalid Win Condition");
                 break;
@@ -191,12 +204,14 @@ public class GameController : MonoBehaviour
     //loads next level and resets certain variables
     public void nextLevel()
     {
+        keysCollected = 0;
         enemiesKilled = 0;
         timeElapsed = 0;
         level++;
         winPart = 0;
         SceneManager.LoadScene(levelNames[level]);
     }
+    //loads given level
     void loadLevel(int levelToLoad)
     {
         if(levelToLoad != -1)
@@ -219,12 +234,15 @@ public class GameController : MonoBehaviour
 
     //resets kills
     public void resetKills() {
+        keysCollected = 0;
         enemiesKilled = 0;
         timeElapsed = 0;
     }
+    //resets level
     public void resetLevel()
     {
         //Resets the scene
+        keysCollected = 0;
         enemiesKilled = 0;
         timeElapsed = 0;
         winPart = 0;
