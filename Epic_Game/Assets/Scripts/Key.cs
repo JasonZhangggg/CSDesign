@@ -39,6 +39,7 @@ public class Key : MonoBehaviour
     {
         if(col.tag == "Player")
         {
+            gameController.playAudio(col.gameObject.GetComponent<AudioSource>(), "Key Collect"); 
             gameController.keyCollected();
             Destroy(gameObject);
         }

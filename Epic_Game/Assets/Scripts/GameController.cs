@@ -74,7 +74,8 @@ public class GameController : MonoBehaviour
         audioClips.Add("Enemy Gun Shot", Resources.Load<AudioClip>("Audio/mixkit-short-laser-gun-shot-1670"));
         audioClips.Add("Enemy Hit", Resources.Load<AudioClip>("Audio/mixkit-cowbell-sharp-hit-1743"));
         audioClips.Add("Better Enemy Hit", Resources.Load<AudioClip>("Audio/mixkit-man-in-pain-2197"));
-
+        audioClips.Add("Key Collect", Resources.Load<AudioClip>("Audio/mixkit-attention-bell-ding-586"));
+        
         //Sounds obtained from https://mixkit.co/free-sound-effects/
 
         
