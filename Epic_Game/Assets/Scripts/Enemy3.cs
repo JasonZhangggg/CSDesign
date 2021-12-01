@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy3 : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class Enemy3 : MonoBehaviour
     float moveZ;
     double moveAngle;
 
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,9 @@ public class Enemy3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) > range)
+        slider.value = (float)HP / 100;
+
+        if (Vector3.Distance(transform.position, player.transform.position) > range)
         {
             GetComponent<Enemy_Shoot_Bullet>().enabled = false;
         }
@@ -118,7 +122,7 @@ public class Enemy3 : MonoBehaviour
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
             gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
-            Destroy(gameObject, 1);
+            Destroy(gameObject);
         }
     }
 }

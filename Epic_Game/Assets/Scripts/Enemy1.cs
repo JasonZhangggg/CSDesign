@@ -19,8 +19,10 @@ public class Enemy1 : MonoBehaviour
     private float windUpMin=2f;
     public bool startAttacking = false;
     public Slider slider;
+
+    public float inRange;
     // Start is called before the first frame update
-    void Start()
+    void Start()    
     {
         player = GameObject.Find("Player");
         gameController = GameObject.Find("Game Controller").GetComponent<GameController>();
@@ -38,7 +40,7 @@ public class Enemy1 : MonoBehaviour
             windUpMax = 2.5f;
         }
         float dist = Vector3.Distance(player.transform.position, transform.position);
-        if (dist <= 60) startAttacking = true;
+        if (dist <= inRange) startAttacking = true;
         if (startAttacking) { 
             if (!charging)
             {

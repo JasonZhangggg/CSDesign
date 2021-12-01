@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Enemy2 : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Enemy2 : MonoBehaviour
     private int direction = 4;
     public Component Enemy_Shoot_Bullet;
     public GameController gameController;
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,8 @@ public class Enemy2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        slider.value = (float)HP / 100;
+
         transform.LookAt(player.transform);
 
         //WIP. Basically what it does is it tries to keep the enemy within a certain range of the player
@@ -101,7 +105,7 @@ public class Enemy2 : MonoBehaviour
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Enemy_Shoot_Bullet>().enabled = false;
             gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
-            Destroy(gameObject, 1);
+            Destroy(gameObject);
         }
     }
 }
