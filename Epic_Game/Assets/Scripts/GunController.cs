@@ -129,13 +129,12 @@ public class GunController : MonoBehaviour
     {
         var tracer = Instantiate(tracerEffect, barrelLoc.transform.position, Quaternion.identity);
         tracer.AddPosition(barrelLoc.transform.position);
-        ray.origin = barrelLoc.transform.position;
-        ray.direction = raycastDest.position - barrelLoc.transform.position;
+        ray.origin = cam.transform.position;
+        ray.direction = raycastDest.position - cam.transform.position;
 
         if (Physics.Raycast(ray, out hitInfo))
         {
             tracer.transform.position = hitInfo.point;
-
             GameObject hitObj = hitInfo.transform.gameObject;
 
             if (hitObj.tag == "Enemy1")
