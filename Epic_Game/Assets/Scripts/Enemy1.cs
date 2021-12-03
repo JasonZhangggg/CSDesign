@@ -19,6 +19,11 @@ public class Enemy1 : MonoBehaviour
     private float windUpMin=2f;
     public bool startAttacking = false;
     public Slider slider;
+    public bool dropHealth;
+    public int dropHeight;
+
+    Ray ray;
+    RaycastHit hitInfo;
     // Start is called before the first frame update
     void Start()
     {
@@ -81,7 +86,25 @@ public class Enemy1 : MonoBehaviour
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
             gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
+            if(dropHealth) 
+            {   
+                drop(GameObject.Find("medHealth"));
+            }
             Destroy(gameObject);
+        }
+    }
+
+    void drop(GameObject itemDrop)
+    {
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            GameObject hitObj = hitInfo.transform.gameObject;
+            if(hitObj.tag == "floor")
+            {
+                Vector3 spawnPos = hitInfo.transform.position;
+                spawnPos.y += dropHeight;
+                Instantiate(itemDrop, spawnPos, Quaternion.identity);
+            }
         }
     }
 }
