@@ -68,6 +68,16 @@ public class PlayerHealth : MonoBehaviour
             //Instantly kills player
             takeDamage(1000);
         }
+        if(trig.gameObject.tag == "Key")
+        {
+            if(health < maxHealth)
+            {
+                //heals player
+                takeDamage(-10);
+            }
+
+            
+        }
     }
 
     //deals removes health points and updates health bar

@@ -7,7 +7,8 @@ public class Key : MonoBehaviour
     public float verticalRange = 0.5f;
     public float turnSpeed = 0.2f;
     public Rigidbody rb;
-    
+    public GameObject enemiesToSpawn;
+
     GameController gameController;
     float direction = 1;
     float maxHeight;
@@ -25,6 +26,8 @@ public class Key : MonoBehaviour
     void Update()
     {
         //rb.AddForce(new Vector3(0, verticalRange * Time.deltaTime * direction * speed, 0));
+
+        //Makes the key slowly bob up and down while spinning
         transform.position += new Vector3(0, verticalRange * Time.deltaTime * direction, 0);
         if((transform.position.y > maxHeight && direction == 1) || (transform.position.y < minHeight && direction ==-1))
         {
@@ -37,12 +40,20 @@ public class Key : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        //checks if a player has collected the key, then acts accordingly
         if(col.tag == "Player")
         {
             gameController.playAudio(col.gameObject.GetComponent<AudioSource>(), "Key Collect"); 
             gameController.keyCollected();
+            spawnEnemies();
             Destroy(gameObject);
         }
         
+    }
+
+    //spawns enemies associated with key
+    void spawnEnemies()
+    {
+        enemiesToSpawn.SetActive(true);
     }
 }
