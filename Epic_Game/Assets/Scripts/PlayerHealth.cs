@@ -70,10 +70,10 @@ public class PlayerHealth : MonoBehaviour
         }
         if(trig.gameObject.tag == "Key")
         {
-            if(health < maxHealth)
+            if(health < maxHealth/2)
             {
-                //heals player
-                takeDamage(-10);
+                //heals player to half health
+                takeDamage(health - (maxHealth/2));
             }
 
             
