@@ -83,22 +83,37 @@ public class PlayerHealth : MonoBehaviour
     //deals removes health points and updates health bar
     void takeDamage(int damage)
     {
-        N_root = (float)Mathf.Pow(((float)health / 100f), (1f / 1.5f));
-        N_power = (float)Mathf.Pow(((float)health / 100f), 4);
-
-
-        if(!invincible || damage > 100)
+        if (!invincible || damage > 100)
         {
             health -= damage;
-            //changes the healthbar's scale based on percent health. Used this like to figure out how to change scale
-            //https://answers.unity.com/questions/805594/how-do-i-change-an-objects-scale-in-code.html
-            float percentHealth = (float)damage/maxHealth;
-            healthBar.transform.localScale -= new Vector3(healthBarSizeX*(percentHealth), 0, 0);
             //makes player temporarily invincible
             invincible = true;
         }
+        healthUpdate(damage);
+    }
 
-        else if (health <= 40) {
+    public void takeHealth(int healing)
+    {
+        if (health + healing > maxHealth)
+        {
+            healing = (maxHealth - health);
+        }
+        health += healing;
+        healthUpdate(healing * -1);
+    }
+
+    void healthUpdate(int delta)
+    {
+        N_root = (float)Mathf.Pow(((float)health / 100f), (1f / 1.5f));
+        N_power = (float)Mathf.Pow(((float)health / 100f), 4);
+
+        //changes the healthbar's scale based on percent health. Used this like to figure out how to change scale
+        //https://answers.unity.com/questions/805594/how-do-i-change-an-objects-scale-in-code.html
+        float percentHealth = (float)delta / maxHealth;
+        healthBar.transform.localScale -= new Vector3(healthBarSizeX * (percentHealth), 0, 0);
+
+        if (health <= 40)
+        {
             //swag
         }
         if (health <= 0)
@@ -107,12 +122,12 @@ public class PlayerHealth : MonoBehaviour
         }
 
         if (health < 50)
-         {
+        {
             healthBar.GetComponent<Image>().color = Color.Lerp(Color.red, Color.yellow, (float)N_root);
-         }
-         else if (health >= 50)
-         {
+        }
+        else if (health >= 50)
+        {
             healthBar.GetComponent<Image>().color = Color.Lerp(Color.yellow, Color.green, (float)N_power);
-         }
+        }
     }
 }
