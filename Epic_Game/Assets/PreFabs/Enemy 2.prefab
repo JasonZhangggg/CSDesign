@@ -454,6 +454,7 @@ MonoBehaviour:
   Enemy_Shoot_Bullet: {fileID: 4403353952383128355}
   gameController: {fileID: 0}
   slider: {fileID: 4908916296372437730}
+  deathFX: {fileID: 1235546741642753485, guid: 8a33d37048f6ce642952021da3cc5620, type: 3}
 --- !u!82 &8902605202384143011
 AudioSource:
   m_ObjectHideFlags: 0

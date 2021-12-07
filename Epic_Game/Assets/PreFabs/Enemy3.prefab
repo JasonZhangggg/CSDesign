@@ -496,6 +496,7 @@ MonoBehaviour:
   targetZ: 0
   targetX: 0
   slider: {fileID: 3564319776524502726}
+  deathFX: {fileID: 2983873722278076600, guid: 8ad1a6ee84fc01445b1fcee7a4bb375d, type: 3}
 --- !u!54 &6964081088200497778
 Rigidbody:
   m_ObjectHideFlags: 0

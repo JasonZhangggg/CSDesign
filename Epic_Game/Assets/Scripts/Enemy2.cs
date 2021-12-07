@@ -18,6 +18,7 @@ public class Enemy2 : MonoBehaviour
     public Component Enemy_Shoot_Bullet;
     public GameController gameController;
     public Slider slider;
+    public GameObject deathFX;
 
     // Start is called before the first frame update
     void Start()
@@ -90,7 +91,17 @@ public class Enemy2 : MonoBehaviour
 
     public void doDamage(){
         HP -= 20;
-        
+
+        if(HP <= 0){
+            gameController.addKill();
+            gameController.playAudio(GetComponent<AudioSource>(), "Explosion");
+            GameObject deathFxClone = Instantiate(deathFX, transform.position, transform.rotation);
+            Destroy(deathFxClone, 3.8f);
+            GetComponent<Collider>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<Enemy_Shoot_Bullet>().enabled = false; 
+            Destroy(gameObject, 1);
+        }
         if(gameController.betterAudio)
         {
             gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 
@@ -99,13 +110,6 @@ public class Enemy2 : MonoBehaviour
         {
             gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
         }
-        if(HP <= 0){
-            gameController.addKill();
-            GetComponent<Collider>().enabled = false;
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<Enemy_Shoot_Bullet>().enabled = false;
-            gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
-            Destroy(gameObject);
-        }
+        
     }
 }

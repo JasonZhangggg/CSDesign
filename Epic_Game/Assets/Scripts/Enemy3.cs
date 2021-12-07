@@ -33,6 +33,7 @@ public class Enemy3 : MonoBehaviour
     double moveAngle;
 
     public Slider slider;
+    public GameObject deathFX;
 
     // Start is called before the first frame update
     void Start()
@@ -108,6 +109,16 @@ public class Enemy3 : MonoBehaviour
     
     public void doDamage(){
         HP -= 20;
+
+        if(HP <= 0){
+            gameController.addKill();
+            GameObject deathFxClone = Instantiate(deathFX, transform.position, transform.rotation);
+            Destroy(deathFxClone, 3.8f);
+            GetComponent<Collider>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
+            gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
+            Destroy(gameObject, 1);
+        }
         
         if(gameController.betterAudio)
         {
@@ -117,12 +128,6 @@ public class Enemy3 : MonoBehaviour
         {
             gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
         } 
-        if(HP <= 0){
-            gameController.addKill();
-            GetComponent<Collider>().enabled = false;
-            GetComponent<MeshRenderer>().enabled = false;
-            gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
-            Destroy(gameObject);
-        }
+        
     }
 }

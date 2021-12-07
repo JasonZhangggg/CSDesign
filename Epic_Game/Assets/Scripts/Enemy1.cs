@@ -19,6 +19,7 @@ public class Enemy1 : MonoBehaviour
     private float windUpMin=2f;
     public bool startAttacking = false;
     public Slider slider;
+    public GameObject deathFX;
 
     public float inRange;
     public Animator animationController;
@@ -76,20 +77,14 @@ void Update()
     public void doDamage(){
         HP -= 20;
 
-        if (gameController.betterAudio)
-        {
-            gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 
-        }
-        else
-        {
-            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
-        }
         if (HP <= 0)
         {
             animationController.SetBool("Run Forward", false);
             animationController.SetBool("Die", true);
 
             gameController.addKill();
+            GameObject deathFxClone = Instantiate(deathFX, transform.position, transform.rotation);
+            Destroy(deathFxClone, 3.8f);
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
             gameController.playAudio(GetComponent<AudioSource>(), "Explosion");
@@ -102,6 +97,16 @@ void Update()
         {
             animationController.SetTrigger("Take Damage");
         }
+
+        if (gameController.betterAudio)
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 
+        }
+        else
+        {
+            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
+        }
+        
 
     }
 }

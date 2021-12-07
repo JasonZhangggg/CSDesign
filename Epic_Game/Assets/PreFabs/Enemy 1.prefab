@@ -110,6 +110,7 @@ MonoBehaviour:
   gameController: {fileID: 0}
   startAttacking: 0
   slider: {fileID: 2004477944133527687}
+  deathFX: {fileID: 5062267920702440521, guid: 5eb772342870ad849ab07af1d3883fc5, type: 3}
   inRange: 20
   animationController: {fileID: 5757455085282451443}
 --- !u!54 &1892981040916224885
