@@ -155,10 +155,15 @@ public class GunController : MonoBehaviour
                 gameController.addKill();
                 GameObject.Find("Targets").GetComponent<PracticeTargets>().hit();
             }
+            else if (hitObj.tag == "Key")
+            {
+                //do nothing so there isn't a floating decal
+            }
             else {
                 hitEffect.transform.position = hitInfo.point;
                 hitEffect.transform.forward = hitInfo.normal;
                 hitEffect.Emit(1);
+                //Debug.Log(hitObj.tag);
             }
         }
         else

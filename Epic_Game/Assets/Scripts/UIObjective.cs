@@ -17,15 +17,15 @@ public class UIObjective : MonoBehaviour
         //Sets the win condition text 
         if (gameController.objText[gameController.level][gameController.winPart] == "Kill")
         {
-            winCondition = "Kill " + gameController.winValues[gameController.level][gameController.winPart] + " Enemies";
+            winCondition = "Kill " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.enemiesKilled) + " Enemies";
         }
         else if (gameController.objText[gameController.level][gameController.winPart] == "Time")
         {
-            winCondition = "Survive " + gameController.winValues[gameController.level][gameController.winPart] + " Seconds";
+            winCondition = "Survive " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.timeElapsed)+ " Seconds";
         }
         else if (gameController.objText[gameController.level][gameController.winPart] == "Collect")
         {
-            winCondition = "Collect " + gameController.winValues[gameController.level][gameController.winPart] + " Keys";
+            winCondition = "Collect " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.keysCollected) + " Keys";
         }
         else
         {

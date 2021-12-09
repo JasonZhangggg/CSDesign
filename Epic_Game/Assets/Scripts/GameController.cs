@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour
     //System variables
     public GameObject pauseMenu;
     public GameObject settingsMenu;
+    public GameObject deathMenu;
+    public bool isDead = false;
     public Text consoleCommand;
     public bool settingsOpen = false;
     public bool isPaused = false;
@@ -104,7 +106,7 @@ public class GameController : MonoBehaviour
         checkWin();
 
         //checks if user presses the pause button
-        if(Input.GetButtonDown("Pause"))
+        if(Input.GetButtonDown("Pause") && !isDead)
         {
             //if the user presses pause again it will exit the current menu
             if(settingsOpen)
@@ -239,6 +241,15 @@ public class GameController : MonoBehaviour
         enemiesKilled = 0;
         timeElapsed = 0;
     }
+
+    public void playerDied()
+    {
+        isDead = true;
+        deathMenu.SetActive(true);
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     //resets level
     public void resetLevel()
     {
@@ -248,6 +259,10 @@ public class GameController : MonoBehaviour
         timeElapsed = 0;
         winPart = 0;
         Debug.Log("You Died");
+        isDead = false;
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        deathMenu.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -256,7 +271,7 @@ public class GameController : MonoBehaviour
     {
         float sensitivity = float.Parse(GameObject.FindGameObjectWithTag("Sensitivity Field").GetComponent<Text>().text);
         mouseSensitivity = sensitivity;
-        GameObject.Find("Player Camera").GetComponent<mouseLook>().updateMouseSensitivity();
+        GameObject.Find("PlayerCamera").GetComponent<mouseLook>().updateMouseSensitivity();
     }
 
     //reads console commands. Add more here

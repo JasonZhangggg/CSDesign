@@ -88,8 +88,9 @@ public class PlayerHealth : MonoBehaviour
             health -= damage;
             //makes player temporarily invincible
             invincible = true;
+            healthUpdate(damage);
         }
-        healthUpdate(damage);
+        
     }
 
     public void takeHealth(int healing)
@@ -118,7 +119,7 @@ public class PlayerHealth : MonoBehaviour
         }
         if (health <= 0)
         {
-            gameController.GetComponent<GameController>().resetLevel();
+            gameController.GetComponent<GameController>().playerDied();
         }
 
         if (health < 50)
