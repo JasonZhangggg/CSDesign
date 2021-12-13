@@ -35,6 +35,7 @@ public class Enemy3 : MonoBehaviour
     public Slider slider;
     public GameObject deathFX;
 
+    public Animator animationController;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,9 +77,13 @@ public class Enemy3 : MonoBehaviour
                 //if the enemy is a certain distance from the player they will attack the player
                 traveling = false;
                 rb.AddRelativeForce(Vector3.forward * speed * 50);
+                animationController.SetTrigger("Attack02");
+
             }
             else if(resting)
             {
+                animationController.SetBool("Run Forward", false);
+
                 restTimer += Time.deltaTime;
                 if (restTimer > maxRestDuration)
                 {
@@ -89,6 +94,7 @@ public class Enemy3 : MonoBehaviour
             }
             else
             {
+                animationController.SetBool("Run Forward", true);
                 travelTimer += Time.deltaTime;
 
                 //the enemy will travel towards the previously selected point
@@ -110,17 +116,24 @@ public class Enemy3 : MonoBehaviour
     public void doDamage(){
         HP -= 20;
 
-        if(HP <= 0){
+        if (HP <= 0)
+        {
+            animationController.SetBool("Run Forward", false);
+            animationController.SetBool("Die", true);
             gameController.addKill();
             GameObject deathFxClone = Instantiate(deathFX, transform.position, transform.rotation);
             Destroy(deathFxClone, 3.8f);
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
-            gameController.playAudio(GetComponent<AudioSource>(), "Explosion"); 
-            Destroy(gameObject, 1);
+            gameController.playAudio(GetComponent<AudioSource>(), "Explosion");
+            Destroy(transform.GetChild(0).gameObject);
+            Destroy(gameObject, 1.8f);
         }
-        
-        if(gameController.betterAudio)
+        else {
+            animationController.SetTrigger("Take Damage");
+
+        }
+        if (gameController.betterAudio)
         {
             gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 
         }

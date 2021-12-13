@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_Shoot_Bullet : MonoBehaviour
 {
     //creates variables to store bullet gameobjects
-    public GameObject bullet;
+    public GameObject fireball;
     private GameObject currentClone;
     public GameController gameController;
 
@@ -13,14 +13,14 @@ public class Enemy_Shoot_Bullet : MonoBehaviour
     public float timer = 0;
 
     //creates variables relating to bullet mechanics
-    public float bulletSpeed = 20f;
-    public float bulletLifeSpan = 10f;
-    public float distInFrontOfCamera = 3f;
+    private float bulletSpeed = 2f;
+    private float bulletLifeSpan = 10f;
+    private float distInFrontOfCamera = 3f;
 
     void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-    }
+    }   
 
     // Update is called once per frame
     void Update()
@@ -30,7 +30,7 @@ public class Enemy_Shoot_Bullet : MonoBehaviour
         if(timer >= fireRate)
         {
             //Instantiates a bullet slightly in from of the enemy and adds a force on it's z axis
-            currentClone = Instantiate(bullet, transform.position, transform.rotation);
+            currentClone = Instantiate(fireball, transform.position, transform.rotation);
             currentClone.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * bulletSpeed);
             currentClone.transform.position = currentClone.transform.position + (transform.forward * distInFrontOfCamera);
             currentClone.tag = "Enemy_Bullet";
