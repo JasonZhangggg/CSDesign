@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Boss_Orienter : MonoBehaviour
 {
-    public GameObject Boss;
-    public GameObject player;
+    GameObject Boss;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
+        Boss = GameObject.FindGameObjectWithTag("Boss");
     }
 
     // Update is called once per frame

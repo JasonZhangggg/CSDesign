@@ -35,6 +35,8 @@ public class playerMovement : MonoBehaviour
     private int totalWeapons = 2;
     private GameObject[] weapons;
 
+
+
     // Update is called once per frame
     void Start() {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
@@ -123,4 +125,6 @@ public class playerMovement : MonoBehaviour
         if (Vector3.Distance(transform.position, point) <= dist) return true;
         return false;
     }
+
+    
 }

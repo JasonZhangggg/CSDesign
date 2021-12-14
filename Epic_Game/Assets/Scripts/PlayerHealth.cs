@@ -81,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     //deals removes health points and updates health bar
-    void takeDamage(int damage)
+    public void takeDamage(int damage)
     {
         if (!invincible || damage > 100)
         {

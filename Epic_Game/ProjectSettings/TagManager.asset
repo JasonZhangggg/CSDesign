@@ -17,6 +17,9 @@ TagManager:
   - EnemyTarget
   - Target
   - Key
+  - Boss Orienter
+  - Boss
+  - Ground
   layers:
   - Default
   - TransparentFX
