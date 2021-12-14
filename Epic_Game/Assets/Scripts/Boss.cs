@@ -14,8 +14,11 @@ public class Boss : MonoBehaviour
 
     GameObject player;
     GameController gameController;
+    PlayerHealth playerHealth;
+    playerMovement PlayerMovement;
     GameObject orienter;
     Rigidbody rb;
+    public GameObject slamFX;
 
     public float turnSpeed = 1;
     public float speed = 10;
@@ -32,6 +35,8 @@ public class Boss : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         orienter = GameObject.FindGameObjectWithTag("Boss Orienter");
         rb = GetComponent<Rigidbody>();
+        playerHealth = player.transform.GetChild(0).gameObject.GetComponent<PlayerHealth>();
+        PlayerMovement =  player.GetComponent<playerMovement>();
     }
 
     // Update is called once per frame
@@ -48,7 +53,7 @@ public class Boss : MonoBehaviour
                 float vX = rb.velocity.x;
                 float vZ = rb.velocity.z;
 
-                rb.AddRelativeForce(Vector3.forward * speed);
+                rb.AddRelativeForce(Vector3.forward * speed * Time.timeScale);
                 
                 if(Vector3.Distance(player.transform.position, transform.position) < 20)
                 {
@@ -57,13 +62,14 @@ public class Boss : MonoBehaviour
 
                 break;
             case SLAMMING:
-                if(timer == 0)
+                if(timer == 0 && Time.timeScale != 0)
                 {
                     rb.AddRelativeForce(Vector3.up *jumpForce);
+                    rb.AddRelativeForce(Vector3.forward * (speed/2) * Time.timeScale);
                     Debug.Log("Jumping");
                     timer += Time.deltaTime;
                 } 
-                else if(timer >= 2  && transform.position.y > 10)
+                else if(timer >= 2  && transform.position.y > 10 && Time.timeScale != 0)
                 {
                     rb.AddRelativeForce(Vector3.down *jumpForce);
                 }
@@ -97,15 +103,27 @@ public class Boss : MonoBehaviour
     
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log("landed");
-        if(col.gameObject.tag == "Ground" && State == SLAMMING && timer >= 2)
+        
+        if(col.gameObject.tag == "Ground" && State == SLAMMING && timer >= 2) //if boss slams into ground creates "explosion" and pushed the player back if they are too close
         {
+            //summons dust effect when boss slams the ground
+            Vector3 FXpos = new Vector3(transform.position.x, transform.position.y - 4.5f, transform.position.z);
+            GameObject slamFXClone = Instantiate(slamFX, FXpos, Quaternion.identity);
+            Destroy(slamFXClone, 2);
+
+            //deals damage and knockback depending on distance to slam
             if(Vector3.Distance(player.transform.position, transform.position) < 30)
             {
                 Vector3 force = (player.transform.position -  transform.position);
-                player.GetComponent<playerMovement>().AddImpact(force, 5000/Vector3.Distance(player.transform.position, transform.position));
-                player.GetComponent<PlayerHealth>().takeDamage((int)Math.Round(50/Vector3.Distance(player.transform.position, transform.position)));
+                PlayerMovement.AddImpact(force, 5000/Vector3.Distance(player.transform.position, transform.position));
+                playerHealth.takeDamage((int)Math.Round(300/Vector3.Distance(player.transform.position, transform.position)));
+                
             }
+        }
+        else if(col.gameObject.tag == "Player" && State == SLAMMING && timer >= 2)
+        {
+            //if boss slams onto the player they die
+            playerHealth.takeDamage(10000000);
         }
     }
 }
