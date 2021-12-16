@@ -9,13 +9,14 @@ public class Boss : MonoBehaviour
     const int IDLE = 0;
     const int CHARGING = 1;
     const int THROWING = 2;
+    const int SPIKES = 3;
     const int SLAMMING = 10;//this is 10 so the boss doesn't go from idle to slamming
 
-    int numberOfStates = 3; 
+    int numberOfStates = 4; 
     
 
     //boss' current state
-    int State = THROWING;
+    int State = IDLE;
 
     GameObject player;
     GameController gameController;
@@ -25,11 +26,13 @@ public class Boss : MonoBehaviour
     Rigidbody rb;
     public GameObject slamFX;
     public GameObject rock;
+    public GameObject spikes;
 
     public float turnSpeed = 1;
     public float speed = 10;
     public float jumpForce = 100;
     public float throwForce = 10;
+    public float throwAimTime = 3;
     
     float timer = 0;
     float idleLength;
@@ -64,12 +67,13 @@ public class Boss : MonoBehaviour
                 else if(timer >= idleLength)
                 {
                     //randomly decided next state
-                    State = (int)Math.Ceiling((double)UnityEngine.Random.Range(1, numberOfStates));
+                    State = SPIKES;//(int)Math.Ceiling((double)UnityEngine.Random.Range(1, numberOfStates));
                     timer = 0;
                     Debug.Log(State);
                 }
                 else
                 {
+                    turnTowardsPlayer();
                     timer += Time.deltaTime;
                 }
                 
@@ -116,24 +120,39 @@ public class Boss : MonoBehaviour
                 break;
             case THROWING:
                 //Throws a rock at the player. Should probably add animation
-                if(timer >= 0 && timer <= 3)
+                GameObject projectile = Instantiate(rock, transform.position, transform.rotation);
+                Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+                projectile.transform.position = projectile.transform.position + (transform.forward * 5.5f);
+                projectileRb.AddRelativeForce(Vector3.forward * throwForce);
+                State = IDLE;
+                timer = 0;
+                break;
+
+            case SPIKES:
+                if(timer == 0 && Time.timeScale != 0)
                 {
-                    //aims for a bit
-                    turnTowardsPlayer();
+                    //Jumps
+                    rb.AddRelativeForce(Vector3.up *jumpForce);
                     timer += Time.deltaTime;
+                } 
+                else if(timer >= 2  && transform.position.y > 10 && Time.timeScale != 0)
+                {
+                    //Slams back down
+                    rb.AddRelativeForce(Vector3.down *jumpForce);
+                }
+                else if(timer >= 3)
+                {
+                    //waits a sec before returning to idle state
+                    timer = 0;
+                    State = IDLE;
                 }
                 else
                 {
-                    //creates a rock, then shoots it at the player
-                    GameObject projectile = Instantiate(rock, transform.position, transform.rotation);
-                    Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-                    projectile.transform.position = projectile.transform.position + (transform.forward * 5.5f);
-                    projectileRb.AddRelativeForce(Vector3.forward * throwForce);
-                    State = IDLE;
-                    timer = 0;
+                    timer += Time.deltaTime;
                 }
                 break;
             default:
+                State = IDLE;
                 break;
 
         }
@@ -178,6 +197,11 @@ public class Boss : MonoBehaviour
         {
             //if boss slams onto the player they die
             playerHealth.takeDamage(10000000);
+        }
+        if(col.gameObject.tag == "Ground" && State == SPIKES && timer >= 2) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
+        {
+            Vector3 spikesPos = new Vector3(transform.position.x, transform.position.y - 4.5f, transform.position.z);
+            Instantiate(spikes, spikesPos, transform.rotation);
         }
     }
 }

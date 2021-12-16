@@ -34894,7 +34894,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17504
+  m_Name: pb_Mesh17560
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35945,10 +35945,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slamFX: {fileID: 9069996918961142092, guid: 3b7f6cdfce722c540a717f9021940522, type: 3}
   rock: {fileID: 3246549443735136649, guid: ec37b22dd26ad98458c0dfb86e10178f, type: 3}
+  spikes: {fileID: 2909903763049112937, guid: f95dea07f74dff04994450daaec86709, type: 3}
   turnSpeed: 5
   speed: 5000
   jumpForce: 100000
   throwForce: 5000
+  throwAimTime: 3
 --- !u!1 &1684535539
 GameObject:
   m_ObjectHideFlags: 0
@@ -41466,7 +41468,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17736
+  m_Name: pb_Mesh17792
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
