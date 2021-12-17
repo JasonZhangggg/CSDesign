@@ -24,6 +24,7 @@ public class Boss : MonoBehaviour
     playerMovement PlayerMovement;
     GameObject orienter;
     Rigidbody rb;
+    Animator animationController;
     public GameObject slamFX;
     public GameObject rock;
     public GameObject spikes;
@@ -32,7 +33,8 @@ public class Boss : MonoBehaviour
     public float speed = 10;
     public float jumpForce = 100;
     public float throwForce = 10;
-    public float throwAimTime = 3;
+    public bool hasThrown = false;
+
     
     float timer = 0;
     float idleLength;
@@ -46,6 +48,7 @@ public class Boss : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         orienter = GameObject.FindGameObjectWithTag("Boss Orienter");
         rb = GetComponent<Rigidbody>();
+        animationController = GetComponent<Animator>();
         playerHealth = player.transform.GetChild(0).gameObject.GetComponent<PlayerHealth>();
         PlayerMovement =  player.GetComponent<playerMovement>();
     }
@@ -57,6 +60,7 @@ public class Boss : MonoBehaviour
         switch(State)
         {
             case IDLE:
+                animationController.Play("Idle");
                 //Boss contemplates life and decides what to do next
                 if(timer == 0)
                 {
@@ -67,7 +71,7 @@ public class Boss : MonoBehaviour
                 else if(timer >= idleLength)
                 {
                     //randomly decided next state
-                    State = SPIKES;//(int)Math.Ceiling((double)UnityEngine.Random.Range(1, numberOfStates));
+                    State = THROWING;//(int)Math.Ceiling((double)UnityEngine.Random.Range(1, numberOfStates));
                     timer = 0;
                     Debug.Log(State);
                 }
@@ -80,12 +84,16 @@ public class Boss : MonoBehaviour
 
                 break;
             case CHARGING:
-                //Boss charges at player and goes into the slamming state if close enough
+                //Boss charges at player and goes into the slamming state if close enough. Speed increases over time so player can't just run
                 turnTowardsPlayer();
-                rb.AddRelativeForce(Vector3.forward * speed * Time.timeScale);
+                animationController.Play("FlyForward");
+                rb.AddRelativeForce(Vector3.forward * speed * Time.timeScale * ((timer/10) + 1));
+                timer += Time.deltaTime;
                 
                 if(Vector3.Distance(player.transform.position, transform.position) < 20)
                 {
+                    timer = 0;
+                    animationController.Play("Idle");
                     State = SLAMMING;
                 }
 
@@ -119,20 +127,34 @@ public class Boss : MonoBehaviour
 
                 break;
             case THROWING:
-                //Throws a rock at the player. Should probably add animation
-                GameObject projectile = Instantiate(rock, transform.position, transform.rotation);
-                Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-                projectile.transform.position = projectile.transform.position + (transform.forward * 5.5f);
-                projectileRb.AddRelativeForce(Vector3.forward * throwForce);
-                State = IDLE;
-                timer = 0;
+                timer += Time.deltaTime;
+                turnTowardsPlayer();
+                //Throws a rock at the player
+                animationController.Play("RightPunchAttack");
+
+                if(timer >= 0.7f && !hasThrown)
+                {
+                    Vector3 rockPos = new Vector3(transform.position.x, transform.position.y + 7.5f, transform.position.z);
+                    GameObject projectile = Instantiate(rock, rockPos, transform.rotation);
+                    Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+                    projectile.transform.position = projectile.transform.position + (transform.forward * 10.5f);
+                    projectile.transform.localPosition += new Vector3(-3, 0, 0);
+                    projectileRb.AddRelativeForce((Vector3.forward + (new Vector3(-0.075f, -0.075f, 0))) * throwForce);
+                    hasThrown = true;
+                    
+                } else if(timer >= 1.3f)
+                {
+                    timer = 0;
+                    State = IDLE;
+                    hasThrown = false;
+                }
                 break;
 
             case SPIKES:
                 if(timer == 0 && Time.timeScale != 0)
                 {
                     //Jumps
-                    rb.AddRelativeForce(Vector3.up *jumpForce);
+                    rb.AddRelativeForce(Vector3.up *(jumpForce * 2));
                     timer += Time.deltaTime;
                 } 
                 else if(timer >= 2  && transform.position.y > 10 && Time.timeScale != 0)
@@ -158,11 +180,10 @@ public class Boss : MonoBehaviour
         }
        
 
-        //when the boss is close enough to player while charging, does a slam of some kind and damages player if they are too close to the blast
+        
 
-        //idle state where it waits a bit, then randomly chooses its next state
+       
 
-        //ranged attack
 
         //ability that removes or blocks off part of the arena
 
@@ -180,7 +201,7 @@ public class Boss : MonoBehaviour
         if(col.gameObject.tag == "Ground" && State == SLAMMING && timer >= 2) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
         {
             //summons dust and rubble effect when boss slams the ground
-            Vector3 FXpos = new Vector3(transform.position.x, transform.position.y - 4.5f, transform.position.z);
+            Vector3 FXpos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             GameObject slamFXClone = Instantiate(slamFX, FXpos, Quaternion.identity);
             Destroy(slamFXClone, 4);
 
@@ -200,7 +221,7 @@ public class Boss : MonoBehaviour
         }
         if(col.gameObject.tag == "Ground" && State == SPIKES && timer >= 2) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
         {
-            Vector3 spikesPos = new Vector3(transform.position.x, transform.position.y - 4.5f, transform.position.z);
+            Vector3 spikesPos = new Vector3(transform.position.x, transform.position.y , transform.position.z);
             Instantiate(spikes, spikesPos, transform.rotation);
         }
     }
