@@ -11,6 +11,7 @@ public class Boss : MonoBehaviour
     const int THROWING = 2;
     const int SPIKES = 3;
     const int SLAMMING = 10;//this is 10 so the boss doesn't go from idle to slamming
+    const int DYING = 11;
 
     int numberOfStates = 4; 
     
@@ -35,7 +36,7 @@ public class Boss : MonoBehaviour
     public float throwForce = 10;
     public bool hasThrown = false;
 
-    
+    public float health = 1000;
     float timer = 0;
     float idleLength;
 
@@ -71,7 +72,7 @@ public class Boss : MonoBehaviour
                 else if(timer >= idleLength)
                 {
                     //randomly decided next state
-                    State = THROWING;//(int)Math.Ceiling((double)UnityEngine.Random.Range(1, numberOfStates));
+                    State = (int)Math.Ceiling((double)UnityEngine.Random.Range(1, numberOfStates));
                     timer = 0;
                     Debug.Log(State);
                 }
@@ -173,6 +174,14 @@ public class Boss : MonoBehaviour
                     timer += Time.deltaTime;
                 }
                 break;
+            case DYING:
+                animationController.Play("Die");
+                timer += Time.deltaTime;
+                if(timer > 1)
+                {
+                    gameController.addKill();
+                }
+                break;
             default:
                 State = IDLE;
                 break;
@@ -225,4 +234,15 @@ public class Boss : MonoBehaviour
             Instantiate(spikes, spikesPos, transform.rotation);
         }
     }
+
+    public void takeDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            timer = 0;
+            State = DYING;
+        }
+    }
+
 }

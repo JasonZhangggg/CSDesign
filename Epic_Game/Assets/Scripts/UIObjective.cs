@@ -12,24 +12,26 @@ public class UIObjective : MonoBehaviour
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
     void updateUI() {
-        //gets game controller script
-
-        //Sets the win condition text 
-        if (gameController.objText[gameController.level][gameController.winPart] == "Kill")
+        //Checks if player has won
+        if(!gameController.hasWon)
         {
-            winCondition = "Kill " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.enemiesKilled) + " Enemies";
-        }
-        else if (gameController.objText[gameController.level][gameController.winPart] == "Time")
-        {
-            winCondition = "Survive " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.timeElapsed)+ " Seconds";
-        }
-        else if (gameController.objText[gameController.level][gameController.winPart] == "Collect")
-        {
-            winCondition = "Collect " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.keysCollected) + " Keys";
-        }
-        else
-        {
-            winCondition = gameController.objText[gameController.level][gameController.winPart];
+            //Sets the win condition text 
+            if (gameController.objText[gameController.level][gameController.winPart] == "Kill")
+            {
+                winCondition = "Kill " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.enemiesKilled) + " Enemies";
+            }
+            else if (gameController.objText[gameController.level][gameController.winPart] == "Time")
+            {
+                winCondition = "Survive " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.timeElapsed)+ " Seconds";
+            }
+            else if (gameController.objText[gameController.level][gameController.winPart] == "Collect")
+            {
+                winCondition = "Collect " + (gameController.winValues[gameController.level][gameController.winPart] - gameController.keysCollected) + " Keys";
+            }
+            else
+            {
+                winCondition = gameController.objText[gameController.level][gameController.winPart];
+            }
         }
 
         //Applies the win condition text to the UI

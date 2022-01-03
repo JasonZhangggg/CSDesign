@@ -45,6 +45,8 @@ public class GameController : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public GameObject deathMenu;
+    public GameObject winMenu;
+    public bool hasWon = false;
     public bool isDead = false;
     public Text consoleCommand;
     public bool settingsOpen = false;
@@ -106,7 +108,7 @@ public class GameController : MonoBehaviour
         checkWin();
 
         //checks if user presses the pause button
-        if(Input.GetButtonDown("Pause") && !isDead)
+        if(Input.GetButtonDown("Pause") && !isDead && !hasWon)
         {
             //if the user presses pause again it will exit the current menu
             if(settingsOpen)
@@ -165,42 +167,48 @@ public class GameController : MonoBehaviour
     //checks if the current win condition has been met
     public void checkWin()
     {
-        switch (winConditions[level][winPart])
+        if(!hasWon)
         {
-            case KILL_ENEMIES:
-                if (enemiesKilled >= winValues[level][winPart]){
-                    resetKills();
-                    winPart++;
-                }
-                break;
-            case SURVIVE:
-                if (timeElapsed >= winValues[level][winPart]) {
-                    resetKills();
-                    winPart++;
-                }
-                break;
-            case LOCATION:
-                if (loc.z >= winValues[level][winPart] && loc.x <= -17) winPart++;
-                break;
-            case ACTION:
-                if (playerMovement.hasDashed == 1){
-                    Destroy(GameObject.Find("Barrier1"));
-                    winPart++;
-                }
-                break;
-            case COLLECT:
-                if (keysCollected == winValues[level][winPart]){
-                    resetKills();
-                    winPart++;
-                }
-                break;
-            default:
-                Debug.Log("Invalid Win Condition");
-                break;
-        }
-        if (winPart == winConditions[level].Length) {
-            Debug.Log("Next Level");
-            nextLevel();
+            switch (winConditions[level][winPart])
+            {
+                case KILL_ENEMIES:
+                    if (enemiesKilled >= winValues[level][winPart]){
+                        resetKills();
+                        winPart++;
+                    }
+                    break;
+                case SURVIVE:
+                    if (timeElapsed >= winValues[level][winPart]) {
+                        resetKills();
+                        winPart++;
+                    }
+                    break;
+                case LOCATION:
+                    if (loc.z >= winValues[level][winPart] && loc.x <= -17) winPart++;
+                    break;
+                case ACTION:
+                    if (playerMovement.hasDashed == 1){
+                        Destroy(GameObject.Find("Barrier1"));
+                        winPart++;
+                    }
+                    break;
+                case COLLECT:
+                    if (keysCollected == winValues[level][winPart]){
+                        resetKills();
+                        winPart++;
+                    }
+                    break;
+                default:
+                    Debug.Log("Invalid Win Condition");
+                    break;
+            }
+            if (winPart == winConditions[level].Length) {
+                Debug.Log("Next Level");
+                Time.timeScale = 0;
+                winMenu.SetActive(true);
+                hasWon = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 
@@ -212,6 +220,9 @@ public class GameController : MonoBehaviour
         timeElapsed = 0;
         level++;
         winPart = 0;
+        hasWon = false;
+        winMenu.SetActive(false);
+        Time.timeScale = 1;
         SceneManager.LoadScene(levelNames[level]);
     }
     //loads given level
