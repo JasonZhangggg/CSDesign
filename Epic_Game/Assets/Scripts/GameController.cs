@@ -79,6 +79,7 @@ public class GameController : MonoBehaviour
         audioClips.Add("Enemy Hit", Resources.Load<AudioClip>("Audio/mixkit-cowbell-sharp-hit-1743"));
         audioClips.Add("Better Enemy Hit", Resources.Load<AudioClip>("Audio/mixkit-man-in-pain-2197"));
         audioClips.Add("Key Collect", Resources.Load<AudioClip>("Audio/mixkit-attention-bell-ding-586"));
+        audioClips.Add("Boss Slam", Resources.Load<AudioClip>("Audio/mixkit-explosion-with-rocks-debris-1703"));
         
         //Sounds obtained from https://mixkit.co/free-sound-effects/
 

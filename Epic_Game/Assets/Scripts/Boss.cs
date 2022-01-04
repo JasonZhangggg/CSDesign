@@ -29,6 +29,8 @@ public class Boss : MonoBehaviour
     public GameObject slamFX;
     public GameObject rock;
     public GameObject spikes;
+    public GameObject deathFX;
+    public AudioSource audioSource;
 
     public float turnSpeed = 1;
     public float speed = 10;
@@ -179,7 +181,9 @@ public class Boss : MonoBehaviour
                 timer += Time.deltaTime;
                 if(timer > 1)
                 {
-                    gameController.addKill();
+                    Vector3 FXpos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                    GameObject slamFXClone = Instantiate(deathFX, FXpos, Quaternion.identity);
+                    Destroy(gameObject);
                 }
                 break;
             default:
@@ -212,6 +216,7 @@ public class Boss : MonoBehaviour
             //summons dust and rubble effect when boss slams the ground
             Vector3 FXpos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             GameObject slamFXClone = Instantiate(slamFX, FXpos, Quaternion.identity);
+            gameController.playAudio(audioSource, "Boss Slam");
             Destroy(slamFXClone, 4);
 
             //deals damage and knockback depending on distance to slam
@@ -230,6 +235,7 @@ public class Boss : MonoBehaviour
         }
         if(col.gameObject.tag == "Ground" && State == SPIKES && timer >= 2) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
         {
+            gameController.playAudio(audioSource, "Boss Slam");
             Vector3 spikesPos = new Vector3(transform.position.x, transform.position.y , transform.position.z);
             Instantiate(spikes, spikesPos, transform.rotation);
         }
@@ -237,11 +243,15 @@ public class Boss : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        health -= damage;
+        if(health != 0)
+        {
+            health -= damage;
+        }
         if(health <= 0)
         {
             timer = 0;
             State = DYING;
+            health = 0;
         }
     }
 

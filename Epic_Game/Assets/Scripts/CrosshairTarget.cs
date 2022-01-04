@@ -36,7 +36,7 @@ public class CrosshairTarget : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo))
         {
             transform.position = hitInfo.point;
-            if (hitInfo.transform.gameObject.tag.Contains("Enemy"))
+            if (hitInfo.transform.gameObject.tag.Contains("Enemy") || hitInfo.transform.gameObject.tag == "Boss")
             {
                 Debug.Log("Enemy");
                 crosshairColor = new Color32(255, 0, 0, 255);
