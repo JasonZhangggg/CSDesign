@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
     //Variables holding information about each level
     public int[][] winConditions = new int[][]{ new int[]{LOCATION, LOCATION, ACTION, KILL_ENEMIES, KILL_ENEMIES}, new int[]{ KILL_ENEMIES }, new int[]{COLLECT}, new int[]{KILL_ENEMIES} };
     public int[][] winValues = new int[][] {new int[]{ 9, 23, 1, 3, 1 }, new int[]{ 9 }, new int[]{7}, new int[]{1} };
-    public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Left click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" }, new string[]{"Collect"}, new string[]{"Kill"} };
+    public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Left click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" }, new string[]{"Collect"}, new string[]{"Defeat the Boss"} };
 
     private string[] levelNames = {"Level 1", "Level 2", "Level 3", "Level 4"};
     public int level = 0;
@@ -103,6 +103,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //updates time elapsed
         loc = GameObject.Find("Player").transform.position;
         timeElapsed += Time.deltaTime;
@@ -227,15 +228,22 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(levelNames[level]);
     }
     //loads given level
-    void loadLevel(int levelToLoad)
+    public void loadLevel(int levelToLoad)
     {
         if(levelToLoad != -1)
         {
-            level = levelToLoad;
+            keysCollected = 0;
             enemiesKilled = 0;
             timeElapsed = 0;
             winPart = 0;
+            isDead = false;
+            Debug.Log(isDead);
+            Cursor.lockState = CursorLockMode.Locked;
+            deathMenu.SetActive(false);
+            level = levelToLoad;
+
             SceneManager.LoadScene(levelNames[level]);
+            
         }
         else if(levelToLoad == -1)
         {
@@ -256,6 +264,7 @@ public class GameController : MonoBehaviour
 
     public void playerDied()
     {
+        Debug.Log("player died");
         isDead = true;
         deathMenu.SetActive(true);
         Time.timeScale = 0;
@@ -270,7 +279,6 @@ public class GameController : MonoBehaviour
         enemiesKilled = 0;
         timeElapsed = 0;
         winPart = 0;
-        Debug.Log("You Died");
         isDead = false;
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;

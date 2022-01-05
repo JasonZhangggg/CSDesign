@@ -20,6 +20,7 @@ TagManager:
   - Boss Orienter
   - Boss
   - Ground
+  - Victory Menu
   layers:
   - Default
   - TransparentFX

@@ -52997,7 +52997,7 @@ GameObject:
   - component: {fileID: 3813032181373213911}
   - component: {fileID: 3813032181373213912}
   m_Layer: 0
-  m_Name: Toon Rock Golem-Red
+  m_Name: Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
