@@ -37,6 +37,7 @@ public class Boss : MonoBehaviour
     public float jumpForce = 100;
     public float throwForce = 10;
     public bool hasThrown = false;
+    public float slamDelay = 0.5f;
 
     public float health = 1000;
     float timer = 0;
@@ -111,12 +112,12 @@ public class Boss : MonoBehaviour
                     Debug.Log("Jumping");
                     timer += Time.deltaTime;
                 } 
-                else if(timer >= 2  && transform.position.y > 10 && Time.timeScale != 0)
+                else if(timer >= slamDelay  && transform.position.y > 10 && Time.timeScale != 0)
                 {
                     //Slams back down
                     rb.AddRelativeForce(Vector3.down *jumpForce);
                 }
-                else if(timer >= 3)
+                else if(timer >= slamDelay + 1)
                 {
                     //waits a sec before returning to idle state
                     timer = 0;
@@ -160,12 +161,12 @@ public class Boss : MonoBehaviour
                     rb.AddRelativeForce(Vector3.up *(jumpForce * 2));
                     timer += Time.deltaTime;
                 } 
-                else if(timer >= 2  && transform.position.y > 10 && Time.timeScale != 0)
+                else if(timer >= slamDelay  && transform.position.y > 10 && Time.timeScale != 0)
                 {
                     //Slams back down
                     rb.AddRelativeForce(Vector3.down *jumpForce);
                 }
-                else if(timer >= 3)
+                else if(timer >= slamDelay + 1)
                 {
                     //waits a sec before returning to idle state
                     timer = 0;
@@ -211,7 +212,7 @@ public class Boss : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         
-        if(col.gameObject.tag == "Ground" && State == SLAMMING && timer >= 2) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
+        if(col.gameObject.tag == "Ground" && State == SLAMMING && timer >= slamDelay) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
         {
             //summons dust and rubble effect when boss slams the ground
             Vector3 FXpos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -220,7 +221,7 @@ public class Boss : MonoBehaviour
             Destroy(slamFXClone, 4);
 
             //deals damage and knockback depending on distance to slam
-            if(Vector3.Distance(player.transform.position, transform.position) < 30)
+            if(Vector3.Distance(player.transform.position, transform.position) < 25)
             {
                 Vector3 force = (player.transform.position -  transform.position);
                 PlayerMovement.AddImpact(force, 5000/Vector3.Distance(player.transform.position, transform.position));
@@ -228,12 +229,12 @@ public class Boss : MonoBehaviour
                 
             }
         }
-        else if(col.gameObject.tag == "Player" && State == SLAMMING && timer >= 2)
+        else if(col.gameObject.tag == "Player" && State == SLAMMING && timer >= slamDelay)
         {
             //if boss slams onto the player they die
             playerHealth.takeDamage(10000000);
         }
-        if(col.gameObject.tag == "Ground" && State == SPIKES && timer >= 2) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
+        if(col.gameObject.tag == "Ground" && State == SPIKES && timer >= slamDelay) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
         {
             gameController.playAudio(audioSource, "Boss Slam");
             Vector3 spikesPos = new Vector3(transform.position.x, transform.position.y , transform.position.z);
@@ -245,6 +246,15 @@ public class Boss : MonoBehaviour
     {
         if(health != 0)
         {
+            if(gameController.betterAudio)
+            {
+                gameController.playAudio(audioSource, "Better Enemy Hit");
+            }
+            else
+            {
+                gameController.playAudio(audioSource, "Enemy Hit");
+            }
+
             health -= damage;
         }
         if(health <= 0)

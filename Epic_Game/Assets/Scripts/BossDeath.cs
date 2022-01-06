@@ -6,6 +6,7 @@ public class BossDeath : MonoBehaviour
 {
     public GameObject winMenu;
     public GameController gameController;
+    public AudioSource audioSource;
     float timer = 0;
     bool menuActive = false;
 
@@ -14,6 +15,7 @@ public class BossDeath : MonoBehaviour
     void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        gameController.playAudio(audioSource, "Explosion");
     }
 
     // Update is called once per frame
