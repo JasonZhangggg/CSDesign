@@ -29,6 +29,7 @@ public class Boss : MonoBehaviour
     public GameObject slamFX;
     public GameObject rock;
     public GameObject spikes;
+    public GameObject spikesWarning;
     public GameObject deathFX;
     public AudioSource audioSource;
 
@@ -157,6 +158,11 @@ public class Boss : MonoBehaviour
             case SPIKES:
                 if(timer == 0 && Time.timeScale != 0)
                 {
+                    //Summons outline of hitbox
+                    Vector3 FXpos = new Vector3(transform.position.x, transform.position.y + 0.001f, transform.position.z);
+                    GameObject spikesWarningClone = Instantiate(spikesWarning, FXpos, transform.rotation);
+                    Destroy(spikesWarningClone, slamDelay + 1f);
+
                     //Jumps
                     rb.AddRelativeForce(Vector3.up *(jumpForce * 2));
                     timer += Time.deltaTime;
