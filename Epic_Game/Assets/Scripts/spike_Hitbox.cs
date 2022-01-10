@@ -9,7 +9,7 @@ public class spike_Hitbox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //destroys the hitbox after 1 framw
+        //destroys the hitbox after 1 frame
         if(Time.timeScale != 0 && frames !=0)//timer > hitboxDuration)
         {
             Destroy(gameObject);

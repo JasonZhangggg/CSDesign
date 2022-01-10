@@ -52,7 +52,6 @@ public class GameController : MonoBehaviour
     public bool settingsOpen = false;
     public bool isPaused = false;
     
-    // Start is called before the first frame update
     void Awake()
     {
         //Makes it so the game controller presists through levels
@@ -64,7 +63,7 @@ public class GameController : MonoBehaviour
         {
             if (controller != gameObject)
             {
-                //if it finds a game controller isn't this one it will destroy itself
+                //if it finds a game controller that isn't this one it will destroy itself
                 //since this only runs when the controller is first created only the original gamecontroller will stick around
                 Destroy(gameObject);
             }
@@ -262,6 +261,7 @@ public class GameController : MonoBehaviour
         timeElapsed = 0;
     }
 
+    //opens death menu when player dies and pauses time
     public void playerDied()
     {
         Debug.Log("player died");
@@ -314,6 +314,7 @@ public class GameController : MonoBehaviour
         consoleCommand.text = "";
     }
 
+    //toggles better audio
     public void toggleBetterAudio()
     {
         betterAudio = !betterAudio;

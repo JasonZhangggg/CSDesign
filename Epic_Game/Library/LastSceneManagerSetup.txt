@@ -1,8 +1,4 @@
 sceneSetups:
-- path: Assets/LowPoly Environment Pack/Demo/Demo 1.unity
-  isLoaded: 0
-  isActive: 0
-  isSubScene: 0
 - path: Assets/Scenes/Level 4.unity
   isLoaded: 1
   isActive: 1

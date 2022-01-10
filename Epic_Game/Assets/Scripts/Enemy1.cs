@@ -76,11 +76,14 @@ void Update()
         }
         
     }
+
+    //Enemy takes damage
     public void doDamage(){
         HP -= 20;
 
         if (HP <= 0)
         {
+            //plays death animation and destroys gameobject
             animationController.SetBool("Run Forward", false);
             animationController.SetBool("Die", true);
 
@@ -101,6 +104,7 @@ void Update()
             animationController.Play("Take Damage");
         }
 
+        //plays hit noise
         if (gameController.betterAudio)
         {
             gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 

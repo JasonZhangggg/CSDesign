@@ -78,7 +78,7 @@ public class Enemy3 : MonoBehaviour
                 {
                     //if the enemy is a certain distance from the player they will attack the player
                     traveling = false;
-                    rb.AddRelativeForce(Vector3.forward * speed * 50);
+                    rb.AddRelativeForce(Vector3.forward * speed * 50 * Time.deltaTime);
                     animationController.SetTrigger("Attack02");
 
                 }
@@ -115,12 +115,13 @@ public class Enemy3 : MonoBehaviour
         }
     }
         
-    
+     //does damage to enemy
     public void doDamage(){
         HP -= 20;
 
         if (HP <= 0)
         {
+            //Plays death animation and destroys gameobject
             animationController.SetBool("Run Forward", false);
             animationController.SetBool("Die", true);
             gameController.addKill();
@@ -139,6 +140,8 @@ public class Enemy3 : MonoBehaviour
             animationController.Play("Take Damage");
 
         }
+
+        //plays hit noise
         if (gameController.betterAudio)
         {
             gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 

@@ -9,8 +9,10 @@ public class FPS : MonoBehaviour
     void Start() {
         fpsText = GameObject.Find("/HUD/FPS").GetComponent<Text>();
     }
+    
     void Update()
     {
+        //Updates fps counter
         if(Time.timeScale != 0)
         {
             deltaTime += (Time.deltaTime - deltaTime) * 0.1f;

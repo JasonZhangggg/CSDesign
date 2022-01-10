@@ -30,7 +30,7 @@ public class CrosshairTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Casts a ray to check if the crosshairs are over an enemy and turns red if they are.
         ray.origin = cam.transform.position;
         ray.direction = cam.transform.forward;
         if (Physics.Raycast(ray, out hitInfo))
@@ -38,7 +38,7 @@ public class CrosshairTarget : MonoBehaviour
             transform.position = hitInfo.point;
             if (hitInfo.transform.gameObject.tag.Contains("Enemy") || hitInfo.transform.gameObject.tag == "Boss")
             {
-                Debug.Log("Enemy");
+                //Debug.Log("Enemy");
                 crosshairColor = new Color32(255, 0, 0, 255);
             }
             else

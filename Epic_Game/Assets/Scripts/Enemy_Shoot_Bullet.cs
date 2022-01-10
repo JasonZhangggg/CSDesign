@@ -35,12 +35,13 @@ public class Enemy_Shoot_Bullet : MonoBehaviour
             //Checks if its time to shoot
             if(timer >= fireRate-delay)
             {
+                //plays animation
                 animationController.Play("Attack01");
             }
             if (timer >= fireRate)
             {
 
-                //Instantiates a bullet slightly in from of the enemy and adds a force on it's z axis
+                //Instantiates a bullet slightly in front of the enemy and adds a force on it's z axis
                 currentClone = Instantiate(fireball, transform.position, transform.rotation);
                 currentClone.transform.Rotate(0f, 180f, 0f);
                 currentClone.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * bulletSpeed);

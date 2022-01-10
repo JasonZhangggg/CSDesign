@@ -24,7 +24,7 @@ public class BossDeath : MonoBehaviour
         timer += Time.deltaTime;
         if(timer > 2 && !menuActive)
         {
-            //makes it so the player can't pause
+            //makes it so the player can't pause and opens the final victory menu
             gameController.isDead = true;
             menuActive = true;
 
@@ -34,11 +34,13 @@ public class BossDeath : MonoBehaviour
         }
     }
 
+    //quits game
     public void exit()
     {
         gameController.quit();
     }
 
+    //restarts game from beginning
     public void restart()
     {
         Time.timeScale = 1;

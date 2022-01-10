@@ -48,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
     }
     void OnCollisionEnter(Collision col)
     {
+        //when you hit an enemy or a bullet you take damage
         if(col.gameObject.tag == "Enemy1" || col.gameObject.tag == "Enemy3")
         {
             takeDamage(20);

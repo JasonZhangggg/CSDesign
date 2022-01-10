@@ -38,25 +38,25 @@ public class Enemy2 : MonoBehaviour
         {
             transform.LookAt(player.transform);
 
-            //WIP. Basically what it does is it tries to keep the enemy within a certain range of the player
+            //tries to keep the enemy within a certain range of the player
             float dist = Vector3.Distance(transform.position, player.transform.position);
             if (dist > attackRange)
             {
                 Enemy_Shoot_Bullet.shooting = false;
-                rb.AddRelativeForce(Vector3.forward * speed);
+                rb.AddRelativeForce(Vector3.forward * speed * Time.deltaTime);
                 animationController.SetBool("Fly Forward", true);
 
             }
             else if (dist < closeRange)
             {
                 Enemy_Shoot_Bullet.shooting = false;
-                rb.AddRelativeForce(Vector3.forward * -speed);
+                rb.AddRelativeForce(Vector3.forward * -speed * Time.deltaTime);
                 animationController.SetBool("Fly Forward", true);
 
             }
             else if (attackRange > dist && dist > closeRange)
             {
-
+                //If enemy is in attack range they will shoot the player
                 Enemy_Shoot_Bullet.shooting = true;
                 rb.velocity -= rb.velocity * (0.9f * Time.deltaTime);
                 animationController.SetBool("Fly Forward", false);
@@ -65,11 +65,11 @@ public class Enemy2 : MonoBehaviour
 
             if (transform.position.y > maxHeight)
             {
-                rb.AddRelativeForce(Vector3.down * 800);
+                rb.AddRelativeForce(Vector3.down * 800 * Time.deltaTime);
             }
             else if (transform.position.y < minHeight)
             {
-                rb.AddRelativeForce(Vector3.up * 800);
+                rb.AddRelativeForce(Vector3.up * 800 * Time.deltaTime);
             }
             rb.AddRelativeForce((1 * Time.deltaTime * speed * direction), 0, 0);
             rb.velocity += Vector3.up * rb.velocity.y * 0.01f;
@@ -93,17 +93,19 @@ public class Enemy2 : MonoBehaviour
         }
     }
 
+    //if the enemy hits a wall or something it will reverse direction
     void OnCollisionEnter(Collision col)
     {
         direction *= -1;
     }
 
-
+    //does damage to enemy
     public void doDamage(){
         HP -= 20;
 
         if (HP <= 0)
         {
+            //Plays death animation and destroys gameobject
             animationController.SetBool("Fly Forward", false);
             animationController.SetBool("Die", true);
 
@@ -123,6 +125,8 @@ public class Enemy2 : MonoBehaviour
             animationController.Play("TakeDamage");
 
         }
+
+        //plays hit noise
         if (gameController.betterAudio)
         {
             gameController.playAudio(GetComponent<AudioSource>(), "Better Enemy Hit"); 

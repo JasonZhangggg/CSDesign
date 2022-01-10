@@ -49,6 +49,7 @@ public class Boss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Gets a bunch of variables it needs to operate such as the player and gamecontroller
         player = GameObject.FindGameObjectWithTag("Player");
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         orienter = GameObject.FindGameObjectWithTag("Boss Orienter");
@@ -61,7 +62,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //deternmines what the boss should be doing based on state
         switch(State)
         {
             case IDLE:
@@ -109,7 +110,7 @@ public class Boss : MonoBehaviour
                 {
                     //Jumps
                     rb.AddRelativeForce(Vector3.up *jumpForce);
-                    rb.AddRelativeForce(Vector3.forward * (speed/2) * Time.timeScale);
+                    rb.AddRelativeForce(Vector3.forward * (speed) * Time.timeScale);
                     Debug.Log("Jumping");
                     timer += Time.deltaTime;
                 } 
@@ -132,13 +133,16 @@ public class Boss : MonoBehaviour
 
                 break;
             case THROWING:
+
+                //Throws a rock at the player
                 timer += Time.deltaTime;
                 turnTowardsPlayer();
-                //Throws a rock at the player
                 animationController.Play("RightPunchAttack");
 
+                //waits until the right point in the throw animation before throwing
                 if(timer >= 0.7f && !hasThrown)
                 {
+                    //throws rock
                     Vector3 rockPos = new Vector3(transform.position.x, transform.position.y + 7.5f, transform.position.z);
                     GameObject projectile = Instantiate(rock, rockPos, transform.rotation);
                     Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
@@ -149,6 +153,7 @@ public class Boss : MonoBehaviour
                     
                 } else if(timer >= 1.3f)
                 {
+                    //returns to idle
                     timer = 0;
                     State = IDLE;
                     hasThrown = false;
@@ -156,6 +161,8 @@ public class Boss : MonoBehaviour
                 break;
 
             case SPIKES:
+
+                //Jumps up very high, then slams the ground, creating a cone of deadly spikes in front of it
                 if(timer == 0 && Time.timeScale != 0)
                 {
                     //Summons outline of hitbox
@@ -184,6 +191,8 @@ public class Boss : MonoBehaviour
                 }
                 break;
             case DYING:
+
+                //dies
                 animationController.Play("Die");
                 timer += Time.deltaTime;
                 if(timer > 1)
@@ -194,18 +203,13 @@ public class Boss : MonoBehaviour
                 }
                 break;
             default:
+                //if the boss state is set to something other than the predefined states it will go back to idle
                 State = IDLE;
                 break;
 
         }
        
 
-        
-
-       
-
-
-        //ability that removes or blocks off part of the arena
 
     }
     
@@ -240,7 +244,7 @@ public class Boss : MonoBehaviour
             //if boss slams onto the player they die
             playerHealth.takeDamage(10000000);
         }
-        if(col.gameObject.tag == "Ground" && State == SPIKES && timer >= slamDelay) //if boss slams into ground creates "explosion" and pushes the player back if they are too close
+        if(col.gameObject.tag == "Ground" && State == SPIKES && timer >= slamDelay) //if boss slams into ground in SPIKES state creates spikes
         {
             gameController.playAudio(audioSource, "Boss Slam");
             Vector3 spikesPos = new Vector3(transform.position.x, transform.position.y , transform.position.z);
@@ -248,10 +252,12 @@ public class Boss : MonoBehaviour
         }
     }
 
+    //boss takes damage
     public void takeDamage(float damage)
     {
         if(health != 0)
         {
+            //plays boss hurt sound
             if(gameController.betterAudio)
             {
                 gameController.playAudio(audioSource, "Better Enemy Hit");
@@ -265,6 +271,7 @@ public class Boss : MonoBehaviour
         }
         if(health <= 0)
         {
+            //triggers death if boss is below 0 hp
             timer = 0;
             State = DYING;
             health = 0;
