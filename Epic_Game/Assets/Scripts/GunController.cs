@@ -93,6 +93,7 @@ public class GunController : MonoBehaviour
         {
             if (!soundPlayed)
             {
+                transform.Rotate(new Vector3(-90, 0, 0));
                 gameController.playAudio(playerAudioSource, "Reload1");
                 soundPlayed = true;
             }
@@ -100,11 +101,13 @@ public class GunController : MonoBehaviour
         }
         if (reloadTime >= 1)
         {
+            transform.Rotate(new Vector3(90, 0, 0));
             gameController.playAudio(playerAudioSource, "Reload2");
             reloadTime = 0;
             isReloading = false;
             soundPlayed = false;
             currentAmmoInClip = clipSize;
+            
         }
     }
     private void DetermineAim()

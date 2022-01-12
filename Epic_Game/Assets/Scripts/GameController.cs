@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
 
     //Variables holding information about each level
     public int[][] winConditions = new int[][]{ new int[]{LOCATION, LOCATION, ACTION, KILL_ENEMIES, KILL_ENEMIES}, new int[]{ KILL_ENEMIES }, new int[]{COLLECT}, new int[]{KILL_ENEMIES} };
-    public int[][] winValues = new int[][] {new int[]{ 9, 23, 1, 3, 1 }, new int[]{ 9 }, new int[]{7}, new int[]{1} };
+    public int[][] winValues = new int[][] {new int[]{ 9, 23, 1, 3, 1 }, new int[]{ 10 }, new int[]{7}, new int[]{1} };
     public string[][] objText = new string[][] { new string[]{"Look around with your mouse and WASD to move", "Press space to jump over the obstacle", "Use the shift key to dash around", "Left click to shoot the 3 targets", "Kill" }, new string[]{ "Kill" }, new string[]{"Collect"}, new string[]{"Defeat the Boss"} };
 
     private string[] levelNames = {"Level 1", "Level 2", "Level 3", "Level 4"};
@@ -305,6 +305,10 @@ public class GameController : MonoBehaviour
                 break;
             case "load":
                 loadLevel(int.Parse(command[1]));
+                break;
+            case "invincible":
+                GameObject.Find("Cylinder").GetComponent<PlayerHealth>().permaInvincible = bool.Parse(command[1]);
+                GameObject.Find("Cylinder").GetComponent<PlayerHealth>().invincible = bool.Parse(command[1]);
                 break;
             default:
                 Debug.Log("invalid command");

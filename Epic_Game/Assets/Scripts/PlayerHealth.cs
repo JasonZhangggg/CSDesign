@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     public bool invincible = false;
     public float invincibilityLength = 0.5f;
     private float invinicbilityTimer = 0;
+    public bool permaInvincible = false;
     public int health;
     private float healthBarSizeX;
     public GameObject gameController;
@@ -36,7 +37,7 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {   
         //checks if player is invincible and turns off invincibility after a given time
-        if(invincible)
+        if(invincible && !permaInvincible)
         {
            invinicbilityTimer += Time.deltaTime;
            if(invinicbilityTimer >= invincibilityLength) 

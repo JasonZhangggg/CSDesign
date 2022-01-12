@@ -16,7 +16,8 @@ public class medHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        maxHeight = transform.position.y + verticalRange;
+        minHeight = transform.position.y - verticalRange;
     }
 
     // Update is called once per frame
@@ -33,11 +34,12 @@ public class medHealth : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Player")
+        
+        if (col.tag == "Player")
         {
-            Debug.Log(col.gameObject.tag);
+            //Debug.Log(col.gameObject.tag);
             GameObject.Find("/Player/Cylinder").GetComponent<PlayerHealth>().takeHealth(50);
             Destroy(gameObject);
         }

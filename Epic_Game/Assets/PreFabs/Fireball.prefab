@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 236723652920457711}
   - component: {fileID: 2264638224466556530}
   - component: {fileID: 7734470634932762101}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4772,7 +4772,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
-  player: {fileID: 0}
 --- !u!54 &2264638224466556530
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4813,7 +4812,7 @@ GameObject:
   - component: {fileID: 8041894616014871449}
   - component: {fileID: 7878048565521472147}
   - component: {fileID: 7879006496018112989}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PS_Fire_ALPHA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9566,7 +9565,7 @@ GameObject:
   - component: {fileID: 8042092342821768425}
   - component: {fileID: 7878010220661157809}
   - component: {fileID: 7877132122055225379}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PS_Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14319,7 +14318,7 @@ GameObject:
   - component: {fileID: 8035946308674828067}
   - component: {fileID: 7877928165330653775}
   - component: {fileID: 7878885320123163937}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PS_Fire_ADD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
