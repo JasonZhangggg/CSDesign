@@ -12,6 +12,7 @@ public class playerMovement : MonoBehaviour
     public Transform groundCheck;
     private float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public PlayerHealth playerHealth;
 
     private Vector3 velocity;
     private bool isGrounded;
@@ -117,9 +118,12 @@ public class playerMovement : MonoBehaviour
     }
 
     public void AddImpact(Vector3 dir, float force){
-        dir.Normalize();
-        if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
-        impact += dir.normalized * force / mass;
+        if(!playerHealth.invincible)
+        {
+            dir.Normalize();
+            if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
+            impact += dir.normalized * force / mass;
+        }
     }
     public bool inRange(Vector3 point, float dist) {
         if (Vector3.Distance(transform.position, point) <= dist) return true;

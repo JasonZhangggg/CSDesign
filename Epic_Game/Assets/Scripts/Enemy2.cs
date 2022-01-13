@@ -43,14 +43,14 @@ public class Enemy2 : MonoBehaviour
             if (dist > attackRange)
             {
                 Enemy_Shoot_Bullet.shooting = false;
-                rb.AddRelativeForce(Vector3.forward * speed * Time.deltaTime);
+                rb.AddRelativeForce(Vector3.forward * speed * Time.deltaTime *5);
                 animationController.SetBool("Fly Forward", true);
 
             }
             else if (dist < closeRange)
             {
                 Enemy_Shoot_Bullet.shooting = false;
-                rb.AddRelativeForce(Vector3.forward * -speed * Time.deltaTime);
+                rb.AddRelativeForce(Vector3.forward * -speed * Time.deltaTime *5);
                 animationController.SetBool("Fly Forward", true);
 
             }
@@ -71,8 +71,10 @@ public class Enemy2 : MonoBehaviour
             {
                 rb.AddRelativeForce(Vector3.up * 800 * Time.deltaTime);
             }
+
+            //move sideways
             rb.AddRelativeForce((1 * Time.deltaTime * speed * direction), 0, 0);
-            rb.velocity += Vector3.up * rb.velocity.y * 0.01f;
+            //rb.velocity += Vector3.up * rb.velocity.y * 0.01f * Time.deltaTime;
 
             /* There's an issue with this. It only works if the enemy 2 object ignores raycast, butit need to be hit by the players raycasts.
             RaycastHit hit;

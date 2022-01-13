@@ -21,6 +21,7 @@ public class BossHealthBar : MonoBehaviour
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
         health = boss.health;
         maxHealth = boss.health;
+        healthText.text = "Boss " + health + "/" + maxHealth;
     }
 
     // Update is called once per frame
@@ -38,8 +39,8 @@ public class BossHealthBar : MonoBehaviour
     //updates boss healthbar
     public void healthUpdate(float delta)
     {
-        healthText.text = "Boss " + health + "/" + maxHealth;
         health = boss.health;
+        healthText.text = "Boss " + health + "/" + maxHealth;
         //yes, I just copied the code from player health
         float percentHealth = (float)delta / maxHealth;
         healthBar.transform.localScale -= new Vector3(healthBarSizeX * (percentHealth), 0, 0);

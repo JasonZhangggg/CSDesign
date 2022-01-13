@@ -13023,6 +13023,7 @@ MonoBehaviour:
   healthBar: {fileID: 581471401}
   invincible: 1
   invincibilityLength: 1
+  permaInvincible: 0
   health: 0
   gameController: {fileID: 0}
   healthColor:
@@ -53036,7 +53037,7 @@ MonoBehaviour:
   deathFX: {fileID: 2218093677247013114, guid: ba6909ff69cb6344eb0f37b33884aa34, type: 3}
   audioSource: {fileID: 3813032181373213912}
   turnSpeed: 5
-  speed: 5000
+  speed: 50000
   jumpForce: 100000
   throwForce: 10000
   hasThrown: 0

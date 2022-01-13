@@ -93,7 +93,7 @@ public class Boss : MonoBehaviour
                 //Boss charges at player and goes into the slamming state if close enough. Speed increases over time so player can't just run
                 turnTowardsPlayer();
                 animationController.Play("FlyForward");
-                rb.AddRelativeForce(Vector3.forward * speed * Time.timeScale * ((timer/10) + 1));
+                rb.AddRelativeForce(Vector3.forward * speed * Time.timeScale * ((timer/10) + 1) * Time.deltaTime);
                 timer += Time.deltaTime;
                 
                 if(Vector3.Distance(player.transform.position, transform.position) < 20)
@@ -109,7 +109,7 @@ public class Boss : MonoBehaviour
                 if(timer == 0 && Time.timeScale != 0)
                 {
                     //Jumps
-                    rb.AddRelativeForce(Vector3.up *jumpForce);
+                    rb.AddRelativeForce(Vector3.up * jumpForce);
                     rb.AddRelativeForce(Vector3.forward * (speed) * Time.timeScale);
                     Debug.Log("Jumping");
                     timer += Time.deltaTime;
@@ -117,7 +117,7 @@ public class Boss : MonoBehaviour
                 else if(timer >= slamDelay  && transform.position.y > 10 && Time.timeScale != 0)
                 {
                     //Slams back down
-                    rb.AddRelativeForce(Vector3.down *jumpForce);
+                    rb.AddRelativeForce(Vector3.down *jumpForce * Time.deltaTime * 25);
                 }
                 else if(timer >= slamDelay + 1)
                 {
@@ -177,7 +177,7 @@ public class Boss : MonoBehaviour
                 else if(timer >= slamDelay  && transform.position.y > 10 && Time.timeScale != 0)
                 {
                     //Slams back down
-                    rb.AddRelativeForce(Vector3.down *jumpForce);
+                    rb.AddRelativeForce(Vector3.down *jumpForce * Time.deltaTime * 25);
                 }
                 else if(timer >= slamDelay + 1)
                 {

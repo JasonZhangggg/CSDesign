@@ -52205,6 +52205,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
+  playerHealth: {fileID: 2108108248}
   gameController: {fileID: 0}
 --- !u!1 &1694686227
 GameObject:
