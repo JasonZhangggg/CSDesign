@@ -111,7 +111,7 @@ void Update()
         }
         else
         {
-            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
+            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit", 0.25f); 
         }
         
 

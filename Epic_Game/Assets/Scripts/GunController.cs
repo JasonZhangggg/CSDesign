@@ -188,7 +188,7 @@ public class GunController : MonoBehaviour
     }
     private void shoot()
     {
-        gameController.playAudio(playerAudioSource, "Gun Shot");
+        gameController.playAudio(playerAudioSource, "Gun Shot", 0.5f);
         muzzleFlash.Emit(1);
         currentAmmoInClip--;
         RaycastForEnemy();

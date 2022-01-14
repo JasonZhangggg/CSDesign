@@ -264,7 +264,7 @@ public class Boss : MonoBehaviour
             }
             else
             {
-                gameController.playAudio(audioSource, "Enemy Hit");
+                gameController.playAudio(audioSource, "Enemy Hit", 0.25f);
             }
 
             health -= damage;

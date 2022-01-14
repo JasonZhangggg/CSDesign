@@ -79,6 +79,7 @@ public class GameController : MonoBehaviour
         audioClips.Add("Better Enemy Hit", Resources.Load<AudioClip>("Audio/mixkit-man-in-pain-2197"));
         audioClips.Add("Key Collect", Resources.Load<AudioClip>("Audio/mixkit-attention-bell-ding-586"));
         audioClips.Add("Boss Slam", Resources.Load<AudioClip>("Audio/mixkit-explosion-with-rocks-debris-1703"));
+        audioClips.Add("Dash", Resources.Load<AudioClip>("Audio/mixkit-short-wind-swoosh-1461"));
         
         //Sounds obtained from https://mixkit.co/free-sound-effects/
 
@@ -93,9 +94,9 @@ public class GameController : MonoBehaviour
     }
 
     //plays given audio clip at the given audio source
-    public void playAudio(AudioSource audioSource, string audioClip)
+    public void playAudio(AudioSource audioSource, string audioClip, float clipVolumeRatio = 1.0f)
     {
-        audioSource.PlayOneShot(audioClips[audioClip], volume);
+        audioSource.PlayOneShot(audioClips[audioClip], volume * clipVolumeRatio);
     }
 
 

@@ -135,7 +135,7 @@ public class Enemy2 : MonoBehaviour
         }
         else
         {
-            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit"); 
+            gameController.playAudio(GetComponent<AudioSource>(), "Enemy Hit", 0.25f); 
         }
         
     }

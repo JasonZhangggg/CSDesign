@@ -13,6 +13,7 @@ public class playerMovement : MonoBehaviour
     private float groundDistance = 0.4f;
     public LayerMask groundMask;
     public PlayerHealth playerHealth;
+    public AudioSource audioSource;
 
     private Vector3 velocity;
     private bool isGrounded;
@@ -73,10 +74,12 @@ public class playerMovement : MonoBehaviour
 
         impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
 
+        //dash
         if (Input.GetKeyDown(KeyCode.LeftShift) == true && dashTime < dashLength && controller.isGrounded && !isDashing && dashTimer>dashCooldown)
         {
             dashTimer = 0;
             isDashing = true;
+            gameController.playAudio(audioSource, "Dash");
             if(gameController.winPart == 2) hasDashed = 1;
         }
  
@@ -118,7 +121,7 @@ public class playerMovement : MonoBehaviour
     }
 
     public void AddImpact(Vector3 dir, float force){
-        if(!playerHealth.invincible)
+        if(!playerHealth.permaInvincible)
         {
             dir.Normalize();
             if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
