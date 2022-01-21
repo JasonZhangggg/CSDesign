@@ -58688,7 +58688,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 2033713788}
   audioSource: {fileID: 1577772919}
   gameController: {fileID: 0}
 --- !u!143 &1577772917
