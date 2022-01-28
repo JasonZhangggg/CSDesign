@@ -346,7 +346,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Look in the top right of the screen, under your health bar, for instructions
+  m_Text: Look in the top left of the screen, under your health bar, for instructions
 --- !u!222 &38798952
 CanvasRenderer:
   m_ObjectHideFlags: 0

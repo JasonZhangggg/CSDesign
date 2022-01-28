@@ -33,7 +33,7 @@ public class Enemy_Shoot_Bullet : MonoBehaviour
         {
             timer += Time.deltaTime;
             //Checks if its time to shoot
-            if(timer >= fireRate-delay)
+            if(timer >= fireRate - delay)
             {
                 //plays animation
                 animationController.Play("Attack01");
